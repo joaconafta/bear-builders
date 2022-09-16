@@ -59,9 +59,9 @@ const EthereumContextProvider: React.FC<EthereumProviderProps> = ({ children }) 
     setIsInRightChain(chainId === currentChainId)
   }, [currentChainId])
 
-  useEffect(() => {
+  /* useEffect(() => {
     fetchBalance()
-  }, [account])
+  }, [account]) */
 
   const listenForWalletChanges = () => {
     listenForAccountChanges()
