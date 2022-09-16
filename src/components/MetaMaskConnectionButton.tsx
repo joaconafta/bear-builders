@@ -3,7 +3,7 @@ import LoadingButton from '@mui/lab/LoadingButton'
 import { useSnackbar } from 'notistack'
 import useAccount from '../hooks/useAccount'
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker'
-import { authenticate, generateChallenge } from '../services/ApoloService'
+import { authenticate, generateChallenge, getProfiles } from '../services/ApoloService'
 import { ethers } from 'ethers'
 
 const MetaMaskConnectionButton: React.FC = () => {
@@ -29,6 +29,14 @@ const MetaMaskConnectionButton: React.FC = () => {
         const signature = await ethersProvider.getSigner().signMessage(nonce)
         const accessTokens = await authenticate(account!, signature)
         setJsonToken(accessTokens.data.authenticate.accessToken)
+
+        const profiles = (await getProfiles(account!)).data.profiles.items
+        let profile = {}
+        if (!profiles.length) console.log('No tenes perfil')
+        else profile = profiles[0]
+        console.log(profile)
+
+
       } catch (error) {
         console.log(error)
       }
