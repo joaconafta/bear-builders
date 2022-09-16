@@ -6,7 +6,7 @@ import SnackBarProvider from './contexts/SnackBarContext'
 import { ThemeProvider } from '@mui/material/styles'
 import Routes from './routes'
 import { darkTheme } from './styles/Theme'
-
+import Layout from './components/Layout'
 const App: React.FC = () => {
   return (
     <SnackBarProvider>
@@ -14,7 +14,9 @@ const App: React.FC = () => {
         <EthereumContextProvider>
           <ThemeProvider theme={darkTheme}>
             <CssBaseline />
-            <Routes />
+            <Layout>
+            <Routes/>
+            </Layout>
           </ThemeProvider>
         </EthereumContextProvider>
       </AccountContextProvider>
