@@ -33,12 +33,12 @@ const EthereumContextProvider: React.FC<EthereumProviderProps> = ({ children }) 
   const [currentChainId, setCurrentChainId] = useState<number>(chainId)
   const [balance, setBalance] = useState<number | undefined>(undefined)
   const { promiseInProgress: fetchingBalance } = usePromiseTracker({ area: 'fetchingBalance' })
-  const { setAccount, account } = useAccount()
+  const { address, login } = useAccount()
   const web3 = new Web3()
   const ethereum = window.ethereum
   web3.setProvider(ethereum)
   const contract = new web3.eth.Contract(abi, nftContractAddress, {
-    from: account!
+    from: address!
   })
 
   const [isInRightChain, setIsInRightChain] = useState(true)
@@ -53,7 +53,7 @@ const EthereumContextProvider: React.FC<EthereumProviderProps> = ({ children }) 
       }
     }
     feach()
-  }, [ethereum, setAccount, web3.eth])
+  }, [ethereum, web3.eth])
 
   useEffect(() => {
     setIsInRightChain(chainId === currentChainId)
@@ -70,7 +70,7 @@ const EthereumContextProvider: React.FC<EthereumProviderProps> = ({ children }) 
 
   const listenForAccountChanges = () => {
     window.ethereum.on('accountsChanged', function (accounts: string[]) {
-      setAccount(accounts[0])
+      login(accounts[0])
     })
   }
 
@@ -83,7 +83,7 @@ const EthereumContextProvider: React.FC<EthereumProviderProps> = ({ children }) 
 
   const fetchBalance = async () => {
     try {
-      const balance = account ? +((await trackPromise(contract.methods.balanceOf(account).call(), 'fetchingBalance')) as string) : 0
+      const balance = address ? +((await trackPromise(contract.methods.balanceOf(address).call(), 'fetchingBalance')) as string) : 0
       setBalance(balance)
     } catch (error) {
       console.log(error)
