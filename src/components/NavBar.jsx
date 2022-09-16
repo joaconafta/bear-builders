@@ -61,13 +61,13 @@ const NavBar = () => {
                 <Button onClick={toggleDrawer('right', true)} className={styles.button}><MenuIcon /></Button>
             </div>
 
-            <Drawer
+            {/* <Drawer
                 anchor={'right'}
                 open={drawer}
                 onClose={toggleDrawer('right', false)}
             >
                 {list('right')}
-            </Drawer>
+            </Drawer> */}
 
 
         </header>

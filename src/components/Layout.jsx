@@ -1,16 +1,16 @@
 
-import React from 'react'
+import React, { useState } from 'react'
 import NavBar from './NavBar'
 import styles from './layout.module.scss'
+import LoginModal from './LoginModal'
 const Layout = (props) => {
-
+  const [loginModal, setLoginModal] = useState(true)
 
 
   return (
     <div className={styles.wrapper}>
-   
-       <NavBar/>
-
+      {/* {loginModal && <LoginModal/>} */}
+      <NavBar />
       <main>
         {props.children}
       </main>
