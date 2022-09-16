@@ -1,7 +1,7 @@
 @import '../mixins.scss';
 .wrapper{
-background: url('../assets/bg.svg') center no-repeat ;
-background-size: cover;
+    background: rgb(230,255,189);
+    background: linear-gradient(53deg, rgba(230,255,189,1) 0%, rgba(170,254,44,1) 35%, rgba(24,74,126,1) 100%);
 width: 100vw;
 height: 100vh;
 
