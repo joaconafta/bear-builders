@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
-import { Drawer, Button, Box, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider, List , TextField} from '@mui/material'
+import React, { useState,useContext } from 'react'
+import { Drawer, Button, Box, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider, List, TextField } from '@mui/material'
+import useAccount from '../hooks/useAccount';
 import MenuIcon from '@mui/icons-material/Menu';
 import styles from './navBar.module.scss'
-
+import Logo from '../assets/starlensLogo.png'
 const NavBar = () => {
     const [drawer, setDrawer] = useState({ right: false })
     const toggleDrawer = (anchor, open) => (event) => {
@@ -49,9 +50,17 @@ const NavBar = () => {
     );
     return (
         <header className={styles.header}>
-            <TextField id="outlined-basic" label="Outlined" variant="outlined"  size="small" className={styles.input}/>
+            <div>
+            <img src={Logo} alt="" />
+            <p>STARLENS</p>
+            </div>
 
-            <Button onClick={toggleDrawer('right', true) } className={styles.button}><MenuIcon /></Button>
+            <div>
+                <TextField id="outlined-basic" label="Outlined" variant="outlined" size="small" className={styles.input} />
+
+                <Button onClick={toggleDrawer('right', true)} className={styles.button}><MenuIcon /></Button>
+            </div>
+
             {/* <Drawer
                 anchor={'right'}
                 open={drawer}

@@ -22,7 +22,7 @@ const FilstersBox = () => {
     return (
         <Box className={styles.box}>
             <Box className={styles.boxs}>
-                <TextField id="outlined-basic" label="User" variant="outlined" size="small" className={styles.input} />
+                <TextField id="outlined-basic" label="Search" variant="outlined" size="small" className={styles.input} />
             </Box>
             <Box className={styles.boxs}>
                 <label htmlFor=""></label>
