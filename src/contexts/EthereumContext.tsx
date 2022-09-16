@@ -7,22 +7,11 @@ import { nftContractAddress, chainId, abi, networkData, chainIdInHex } from '../
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker'
 
 export interface EthereumContextProps {
-  readonly contract: Contract
   readonly isInRightChain: boolean
-  readonly fetchingBalance: boolean
-  readonly balance: number | undefined
-  readonly fetchBalance: () => Promise<void>
 }
 
 export const EthereumContext = createContext<EthereumContextProps>({
-  isInRightChain: false,
-  contract: new new Web3().eth.Contract(abi, nftContractAddress),
-  fetchingBalance: true,
-  balance: 0,
-  fetchBalance: () =>
-    new Promise(() => {
-      null
-    })
+  isInRightChain: false
 })
 
 interface EthereumProviderProps {
@@ -31,15 +20,11 @@ interface EthereumProviderProps {
 
 const EthereumContextProvider: React.FC<EthereumProviderProps> = ({ children }) => {
   const [currentChainId, setCurrentChainId] = useState<number>(chainId)
-  const [balance, setBalance] = useState<number | undefined>(undefined)
-  const { promiseInProgress: fetchingBalance } = usePromiseTracker({ area: 'fetchingBalance' })
-  const { address, login } = useAccount()
+
+  const { login } = useAccount()
   const web3 = new Web3()
   const ethereum = window.ethereum
   web3.setProvider(ethereum)
-  const contract = new web3.eth.Contract(abi, nftContractAddress, {
-    from: address!
-  })
 
   const [isInRightChain, setIsInRightChain] = useState(true)
 
@@ -81,15 +66,6 @@ const EthereumContextProvider: React.FC<EthereumProviderProps> = ({ children }) 
     })
   }
 
-  const fetchBalance = async () => {
-    try {
-      const balance = address ? +((await trackPromise(contract.methods.balanceOf(address).call(), 'fetchingBalance')) as string) : 0
-      setBalance(balance)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   //Manual changes of chain
 
   const handleChangeChain = async () => {
@@ -111,11 +87,7 @@ const EthereumContextProvider: React.FC<EthereumProviderProps> = ({ children }) 
   return (
     <EthereumContext.Provider
       value={{
-        contract,
-        isInRightChain,
-        balance,
-        fetchBalance,
-        fetchingBalance
+        isInRightChain
       }}
     >
       {children}

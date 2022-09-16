@@ -19,7 +19,6 @@ const MetaMaskConnectionButton: React.FC = () => {
     } catch (e) {
       console.log(e)
       /* enqueueSnackbar('Please connect to MetaMask', { variant: 'error' }) */
-      window.location.reload()
     }
   }
 
