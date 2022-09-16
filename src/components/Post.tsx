@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box } from '@mui/system'
-import { createPost } from '../services/PostSercice'
+import { createPost } from '../services/PostService'
 import { Button } from '@mui/material'
 
 const Post: React.FC = () => {

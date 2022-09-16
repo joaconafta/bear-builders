@@ -1,11 +1,12 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
+import { apolloClientForPost } from './Apollo-Client'
 
-const APIURL = 'https://api-mumbai.lens.dev/'
+// const APIURL = 'https://api-mumbai.lens.dev/'
 
-export const apolloClient = new ApolloClient({
-  uri: APIURL,
-  cache: new InMemoryCache()
-})
+// export const apolloClient = new ApolloClient({
+//   uri: APIURL,
+//   cache: new InMemoryCache()
+// })
 
 //QUERYS
 
@@ -229,7 +230,7 @@ const RECOMMENDED_PROFILES = `
 //FUNCTIONS
 
 export const authenticate = (address: string, signature: string) => {
-  return apolloClient.mutate({
+  return apolloClientForPost.mutate({
     mutation: gql(AUTHENTICATION),
     variables: {
       request: {
@@ -241,7 +242,7 @@ export const authenticate = (address: string, signature: string) => {
 }
 
 export const generateChallenge = (address: string) => {
-  return apolloClient.query({
+  return apolloClientForPost.query({
     query: gql(GET_CHALLENGE),
     fetchPolicy: 'no-cache',
     variables: {
@@ -253,7 +254,7 @@ export const generateChallenge = (address: string) => {
 }
 
 export const getProfiles = (address: string) => {
-  return apolloClient.query({
+  return apolloClientForPost.query({
     query: gql(GET_PROFILES),
     variables: {
       request: {
@@ -265,7 +266,7 @@ export const getProfiles = (address: string) => {
 }
 
 export const getRecommendedProfiles = () => {
-  return apolloClient.query({
+  return apolloClientForPost.query({
     query: gql(RECOMMENDED_PROFILES)
   })
 }
@@ -291,7 +292,7 @@ export const createProfile = (handle: string) => {
     followNFTURI: null,
     followModule: null
   }
-  return apolloClient.mutate({
+  return apolloClientForPost.mutate({
     mutation: gql(CREATE_PROFILE),
     variables: {
       request: createProfileRequest
