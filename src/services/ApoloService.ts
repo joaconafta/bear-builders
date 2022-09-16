@@ -243,6 +243,7 @@ export const authenticate = (address: string, signature: string) => {
 export const generateChallenge = (address: string) => {
   return apolloClient.query({
     query: gql(GET_CHALLENGE),
+    fetchPolicy: 'no-cache',
     variables: {
       request: {
         address
@@ -266,5 +267,34 @@ export const getProfiles = (address: string) => {
 export const getRecommendedProfiles = () => {
   return apolloClient.query({
     query: gql(RECOMMENDED_PROFILES)
+  })
+}
+
+const CREATE_PROFILE = `
+  mutation($request: CreateProfileRequest!) { 
+    createProfile(request: $request) {
+      ... on RelayerResult {
+        txHash
+      }
+      ... on RelayError {
+        reason
+      }
+            __typename
+    }
+ }
+`
+
+export const createProfile = (handle: string) => {
+  const createProfileRequest = {
+    handle,
+    profilePictureUri: 'https://ipfs.io/ipfs/QmY9dUwYu67puaWBMxRKW98LPbXCznPwHUbhX5NeWnCJbX',
+    followNFTURI: null,
+    followModule: null
+  }
+  return apolloClient.mutate({
+    mutation: gql(CREATE_PROFILE),
+    variables: {
+      request: createProfileRequest
+    }
   })
 }

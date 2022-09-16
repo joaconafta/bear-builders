@@ -2,7 +2,7 @@ import { ethers } from 'ethers'
 import React, { createContext, useEffect, useState } from 'react'
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker'
 import useLocalStorage from '../hooks/useLocalStorage'
-import { authenticate, generateChallenge, getProfiles } from '../services/ApoloService'
+import { authenticate, createProfile, generateChallenge, getProfiles } from '../services/ApoloService'
 import { ProfileType } from '../types/ProfileType'
 
 export interface AccountContextProps {
@@ -44,10 +44,13 @@ const AccountContextProvider: React.FC<AccountProviderProps> = ({ children }) =>
   }
 
   const getProfile = async () => {
-    const profiles = (await getProfiles(address!)).data.profiles.items
-
-    if (!profiles.length) setProfile(null)
-    else setProfile(profiles[0])
+    let profiles = (await getProfiles(address!)).data.profiles.items
+    if (!profiles.length) {
+      console.log('creando...')
+      await createProfile('Test')
+      profiles = (await getProfiles(address!)).data.profiles.item
+      console.log('creado...')
+    } else setProfile(profiles[0])
   }
 
   const getToken = async (address: string) => {
