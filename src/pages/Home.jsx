@@ -3,6 +3,7 @@ import { Box, Typography } from '@mui/material'
 import useAccount from '../hooks/useAccount'
 import FilstersBox from '../components/filtersBox'
 import DisplayHome from '../components/DisplayHome'
+import Post from '../components/Post'
 const Home= () => {
   const { profile } = useAccount()
 
@@ -12,7 +13,7 @@ const Home= () => {
 
       <FilstersBox/>
       <DisplayHome/>
-    
+      <Post/>
     </Box>
   )
 }
