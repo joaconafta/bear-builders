@@ -11,9 +11,16 @@ const MetaMaskConnectionButton: React.FC = () => {
   const ethereum = window.ethereum
 
   const handleAddress = async () => {
-    const accounts: string[] = await trackPromise(ethereum.request({ method: 'eth_requestAccounts' }), 'login')
-    const address = accounts[0]
-    login(address)
+    try {
+      const accounts: string[] = await trackPromise(ethereum.request({ method: 'eth_requestAccounts' }), 'login')
+      const address = accounts[0]
+
+      await login(address)
+    } catch (e) {
+      console.log(e)
+      /* enqueueSnackbar('Please connect to MetaMask', { variant: 'error' }) */
+      window.location.reload()
+    }
   }
 
   const connect = async () => {
