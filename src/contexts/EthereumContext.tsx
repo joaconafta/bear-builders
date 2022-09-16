@@ -54,9 +54,9 @@ const EthereumContextProvider: React.FC<EthereumProviderProps> = ({ children }) 
   }
 
   const listenForAccountChanges = () => {
-    window.ethereum.on('accountsChanged', function (accounts: string[]) {
+    /* window.ethereum.on('accountsChanged', function (accounts: string[]) {
       login(accounts[0])
-    })
+    }) */
   }
 
   const listenForChainChanges = () => {
