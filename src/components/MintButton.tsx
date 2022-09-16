@@ -17,7 +17,7 @@ interface MintButtonProps {
 }
 
 const MintButton: React.FC<MintButtonProps> = ({ form, setClickPurchase, handleClose }) => {
-  const { account } = useAccount()
+  const { address: account } = useAccount()
   const { isInRightChain } = useEthereum()
   const { enqueueSnackbar } = useSnackbar()
   const { contract, fetchBalance, balance, fetchingBalance } = useEthereum()

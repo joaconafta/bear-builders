@@ -3,7 +3,7 @@ import React from 'react'
 import useAccount from '../hooks/useAccount'
 
 const PublicAddressContainer: React.FC = () => {
-  const { account } = useAccount()
+  const { address: account } = useAccount()
 
   return (
     <Tooltip title={account ? account : ''}>

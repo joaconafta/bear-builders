@@ -1,0 +1,43 @@
+$blue : #184A7E;
+$main-green : #AAFE2C;
+$secondary-green : #E6FFBD;
+$white : #fafafa;
+$black : rgb(19, 19, 19);
+
+
+@mixin minWidht($val) {
+    @media (min-width: $val) {
+        @content;
+    }
+}
+
+@mixin maxWidth($val) {
+    @media (max-width: $val) {
+        @content;
+    }
+}
+
+@mixin mainButton {
+    background: $blue;
+    width: 120px;
+    height: 38px;
+    color: $white;
+}
+
+@mixin secondaryButton {
+    background: $white;
+    border: 2px solid $blue;
+    color: $blue;
+    width: 120px;
+    height: 38px;
+    color: $blue;
+}
+
+@mixin tertiaryButton {
+    background: transparent;
+    text-decoration: underline 2px $blue;
+    width: 120px;
+    height: 38px;
+    color: $blue;
+}
+
