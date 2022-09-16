@@ -272,17 +272,22 @@ export const getRecommendedProfiles = () => {
 }
 
 const CREATE_PROFILE = `
-  mutation($request: CreateProfileRequest!) { 
-    createProfile(request: $request) {
+mutation CreateProfile {
+    createProfile(request:{ 
+                  handle: "devjoshstevens",
+                  profilePictureUri: null,
+                  followNFTURI: null,
+                  followModule: null
+                  }) {
       ... on RelayerResult {
         txHash
       }
       ... on RelayError {
         reason
       }
-            __typename
+      __typename
     }
- }
+  }
 `
 
 export const createProfile = (handle: string) => {
