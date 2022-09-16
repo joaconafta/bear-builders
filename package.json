@@ -68,7 +68,6 @@
   },
   "devDependencies": {
     "@types/omit-deep-lodash": "^1.1.1",
-    "@types/omit-deep": "*",
     "omit-deep": "^0.3.0",
     "react-error-overlay": "6.0.9"
   }
