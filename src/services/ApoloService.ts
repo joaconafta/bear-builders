@@ -7,6 +7,8 @@ export const apolloClient = new ApolloClient({
   cache: new InMemoryCache()
 })
 
+//QUERYS
+
 const AUTHENTICATION = `
   mutation($request: SignedAuthChallenge!) { 
     authenticate(request: $request) {
@@ -15,11 +17,12 @@ const AUTHENTICATION = `
     }
  }
 `
-
 const GET_CHALLENGE = `
   query($request: ChallengeRequest!) {
     challenge(request: $request) { text }
   }`
+
+//FUNCTIONS
 
 export const authenticate = (address: string, signature: string) => {
   return apolloClient.mutate({
