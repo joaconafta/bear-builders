@@ -47,9 +47,9 @@ const AccountContextProvider: React.FC<AccountProviderProps> = ({ children }) =>
     let profiles = (await getProfiles(address!)).data.profiles.items
     if (!profiles.length) {
       console.log('creando...')
-      await createProfile('Test')
+      console.log(await createProfile('Test'))
       profiles = (await getProfiles(address!)).data.profiles.item
-      console.log('creado...')
+      console.log('creado', profiles)
     } else setProfile(profiles[0])
   }
 
@@ -63,16 +63,16 @@ const AccountContextProvider: React.FC<AccountProviderProps> = ({ children }) =>
 
   useEffect(() => {
     const feach = async () => {
-      try {
-        address && (await getProfile())
-      } catch (error) {
+      /* try { */
+      address && (await getProfile())
+      /*  } catch (error) {
         console.log(error)
-      }
+      } */
     }
     feach()
   }, [address])
 
-  const isLogged = !!address && !!jsonToken && !!profile
+  const isLogged = !!address && !!jsonToken
 
   return <AccountContext.Provider value={{ address, login, jsonToken, isLogged, logout, profile }}>{children}</AccountContext.Provider>
 }

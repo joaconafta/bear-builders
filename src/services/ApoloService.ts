@@ -1,5 +1,5 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
-import { apolloClientForPost } from './Apollo-Client'
+import { apolloClientWithToken } from './Apollo-Client'
 
 // const APIURL = 'https://api-mumbai.lens.dev/'
 
@@ -230,7 +230,7 @@ const RECOMMENDED_PROFILES = `
 //FUNCTIONS
 
 export const authenticate = (address: string, signature: string) => {
-  return apolloClientForPost.mutate({
+  return apolloClientWithToken.mutate({
     mutation: gql(AUTHENTICATION),
     variables: {
       request: {
@@ -242,7 +242,7 @@ export const authenticate = (address: string, signature: string) => {
 }
 
 export const generateChallenge = (address: string) => {
-  return apolloClientForPost.query({
+  return apolloClientWithToken.query({
     query: gql(GET_CHALLENGE),
     fetchPolicy: 'no-cache',
     variables: {
@@ -254,7 +254,7 @@ export const generateChallenge = (address: string) => {
 }
 
 export const getProfiles = (address: string) => {
-  return apolloClientForPost.query({
+  return apolloClientWithToken.query({
     query: gql(GET_PROFILES),
     variables: {
       request: {
@@ -266,36 +266,49 @@ export const getProfiles = (address: string) => {
 }
 
 export const getRecommendedProfiles = () => {
-  return apolloClientForPost.query({
+  return apolloClientWithToken.query({
     query: gql(RECOMMENDED_PROFILES)
   })
 }
 
 const CREATE_PROFILE = `
-  mutation($request: CreateProfileRequest!) { 
-    createProfile(request: $request) {
+mutation CreateProfile {
+    createProfile(request:{ 
+                  handle: "devjoshstevens",
+                  profilePictureUri: null,
+                  followNFTURI: null,
+                  followModule: null
+                  }) {
       ... on RelayerResult {
         txHash
       }
       ... on RelayError {
         reason
       }
-            __typename
+      __typename
     }
- }
+  }
 `
 
 export const createProfile = (handle: string) => {
   const createProfileRequest = {
     handle,
     profilePictureUri: 'https://ipfs.io/ipfs/QmY9dUwYu67puaWBMxRKW98LPbXCznPwHUbhX5NeWnCJbX',
-    followNFTURI: null,
-    followModule: null
+    followModule: {
+      freeFollowModule: true
+    }
   }
-  return apolloClientForPost.mutate({
+  console.log(createProfileRequest)
+  return apolloClientWithToken.mutate({
     mutation: gql(CREATE_PROFILE),
     variables: {
-      request: createProfileRequest
+      request: {
+        handle,
+        profilePictureUri: 'https://ipfs.io/ipfs/QmY9dUwYu67puaWBMxRKW98LPbXCznPwHUbhX5NeWnCJbX',
+        followModule: {
+          freeFollowModule: true
+        }
+      }
     }
   })
 }
