@@ -3,12 +3,15 @@ import LoadingButton from '@mui/lab/LoadingButton'
 import { useSnackbar } from 'notistack'
 import useAccount from '../hooks/useAccount'
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker'
+import { authenticate, generateChallenge } from '../services/ApoloService'
+import { ethers } from 'ethers'
 
 const MetaMaskConnectionButton: React.FC = () => {
-  const { setAccount } = useAccount()
+  const { setAccount, setJsonToken } = useAccount()
   const { promiseInProgress } = usePromiseTracker({ area: 'login' })
   const { enqueueSnackbar } = useSnackbar()
   const width = window.innerWidth
+  const ethersProvider = new ethers.providers.Web3Provider(window.ethereum)
 
   const connect = async () => {
     const ethereum = window.ethereum
@@ -19,7 +22,13 @@ const MetaMaskConnectionButton: React.FC = () => {
     else {
       try {
         const accounts: string[] = await trackPromise(ethereum.request({ method: 'eth_requestAccounts' }), 'login')
-        setAccount(accounts[0])
+        const account = accounts[0]
+        setAccount(account)
+
+        const nonce = (await generateChallenge(account!)).data.challenge.text
+        const signature = await ethersProvider.getSigner().signMessage(nonce)
+        const accessTokens = await authenticate(account!, signature)
+        setJsonToken(accessTokens.data.authenticate.accessToken)
       } catch (error) {
         console.log(error)
       }

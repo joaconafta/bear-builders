@@ -6,7 +6,7 @@ import MetaMaskConnectionButton from '../MetaMaskConnectionButton'
 import PublicAddressContainer from '../PublicAddressContainer'
 
 const NavBar: React.FC = () => {
-  const { account } = useAccount()
+  const { isLogged } = useAccount()
 
   return (
     <Box
@@ -16,7 +16,7 @@ const NavBar: React.FC = () => {
         padding: 2
       }}
     >
-      {account ? (
+      {isLogged ? (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <PublicAddressContainer />
           <LogoutButton />
