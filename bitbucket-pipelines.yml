@@ -1,0 +1,50 @@
+# Definition file for Bitbucket Pipeline
+options:
+  docker: true
+  size: 2x
+
+definitions:
+  steps:
+    - step: &build
+        name: Build
+        image: node:16
+        caches:
+          - node
+        script:
+          - npm install --no-audit
+        artifacts:
+          - node_modules/**
+    - step: &deploy
+        name: Deploy
+        image: node:16
+        script:
+          - touch .env
+          - echo "REACT_APP_NFT_CONTRACT_ADDRESS=$REACT_APP_NFT_CONTRACT_ADDRESS" >> .env
+          - echo "REACT_APP_ENV=$REACT_APP_ENV" >> .env
+          - CI= npm run-script build
+          #pending >> migrate to aws s3 cli directly
+          - pipe: atlassian/aws-s3-deploy:0.5.0
+            variables:
+              AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY
+              AWS_SECRET_ACCESS_KEY: $AWS_SECRET_KEY
+              AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+              S3_BUCKET: $S3_BUCKET
+              LOCAL_PATH: 'build'
+          - pipe: atlassian/aws-cloudfront-invalidate:0.6.0
+            variables:
+              AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY
+              AWS_SECRET_ACCESS_KEY: $AWS_SECRET_KEY
+              AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+              DISTRIBUTION_ID: 'E1XNTUKBPRR4OB'
+pipelines:
+  branches:
+    development:
+      - step: *build
+      - step:
+          <<: *deploy
+          deployment: test
+    master:
+      - step: *build
+      - step:
+          <<: *deploy
+          deployment: production
