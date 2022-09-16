@@ -3,7 +3,7 @@ import LoadingButton from '@mui/lab/LoadingButton'
 import { useSnackbar } from 'notistack'
 import useAccount from '../hooks/useAccount'
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker'
-import { authenticate, generateChallenge, getProfiles } from '../services/ApoloService'
+import { authenticate, generateChallenge, getProfiles, getRecommendedProfiles } from '../services/ApoloService'
 import { ethers } from 'ethers'
 
 const MetaMaskConnectionButton: React.FC = () => {
@@ -34,8 +34,8 @@ const MetaMaskConnectionButton: React.FC = () => {
         let profile = {}
         if (!profiles.length) console.log('No tenes perfil')
         else profile = profiles[0]
-        console.log(profile)
 
+        const recomendedProfiles = (await getRecommendedProfiles())
 
       } catch (error) {
         console.log(error)
