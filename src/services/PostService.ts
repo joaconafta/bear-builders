@@ -2,6 +2,7 @@ import { gql } from '@apollo/client'
 import { apolloClientWithToken as apolloClientWithToken } from './Apollo-Client'
 import { apolloClient } from './ApoloService'
 import { signedTypeData, getAddressFromSigner, splitSignature } from './EtherService'
+import { uploadToIpfs } from './IpfsService'
 import { lensHub } from './lensHub'
 
 const CREATE_POST_TYPED_DATA = `

@@ -16,24 +16,7 @@ const Post: React.FC = () => {
   }
 
   const handleFollow = async () => {
-    console.log(profile?.id)
-    const result = await createFollowTypedData()
-    console.log(profile?.id)
-    const typedData = result.data.createFollowTypedData.typedData
-    const signature = await signedTypeData(typedData.domain, typedData.types, typedData.value)
-    const { v, r, s } = splitSignature(signature)
-    const tx = await lensHub.followWithSig({
-      follower: getAddressFromSigner(),
-      profileIds: typedData.value.profileIds,
-      datas: typedData.value.datas,
-      sig: {
-        v,
-        r,
-        s,
-        deadline: typedData.value.deadline
-      }
-    })
-    console.log(tx.hash)
+    /*  await follow('0x46ba') */
   }
 
   return (
