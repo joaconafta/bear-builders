@@ -44,12 +44,12 @@ const AccountContextProvider: React.FC<AccountProviderProps> = ({ children }) =>
   }
 
   const getProfile = async () => {
-    let profiles = (await getProfiles(address!)).data.profiles.items
+    const profiles = (await getProfiles(address!)).data.profiles.items
     if (!profiles.length) {
       console.log('creando...')
-      console.log(await createProfile('Test'))
-      profiles = (await getProfiles(address!)).data.profiles.item
-      console.log('creado', profiles)
+      await createProfile()
+      console.log(await getProfiles(address!))
+      setProfile((await getProfiles(address!)).data.profiles.item[0])
     } else setProfile(profiles[0])
   }
 

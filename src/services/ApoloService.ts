@@ -272,42 +272,27 @@ export const getRecommendedProfiles = () => {
 }
 
 const CREATE_PROFILE = `
-mutation CreateProfile {
-    createProfile(request:{ 
-                  handle: "devjoshstevens",
-                  profilePictureUri: null,
-                  followNFTURI: null,
-                  followModule: null
-                  }) {
+  mutation($request: CreateProfileRequest!) { 
+    createProfile(request: $request) {
       ... on RelayerResult {
         txHash
       }
       ... on RelayError {
         reason
       }
-      __typename
+            __typename
     }
-  }
+ }
 `
-
-export const createProfile = (handle: string) => {
-  const createProfileRequest = {
-    handle,
-    profilePictureUri: 'https://ipfs.io/ipfs/QmY9dUwYu67puaWBMxRKW98LPbXCznPwHUbhX5NeWnCJbX',
-    followModule: {
-      freeFollowModule: true
-    }
-  }
-  console.log(createProfileRequest)
+export const createProfile = () => {
   return apolloClientWithToken.mutate({
     mutation: gql(CREATE_PROFILE),
     variables: {
       request: {
-        handle,
-        profilePictureUri: 'https://ipfs.io/ipfs/QmY9dUwYu67puaWBMxRKW98LPbXCznPwHUbhX5NeWnCJbX',
-        followModule: {
-          freeFollowModule: true
-        }
+        handle: 'Test' + Math.floor(Math.random() * 1000000),
+        profilePictureUri: null,
+        followNFTURI: null,
+        followModule: null
       }
     }
   })
