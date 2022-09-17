@@ -4,12 +4,13 @@ import { Rating } from '@mui/material'
 import Previews from '../components/Previews'
 import StarModal from '../components/StarModal'
 import { useParams } from 'react-router-dom'
+import {Box} from '@mui/material'
 const MemoDetail = () => {
 const [starModal, setStarModal] = useState(false)
 let { memoId } = useParams();
 
 const handleStarModal = () => setStarModal(!starModal)
-  return (
+  return (<Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, justifyContent: 'center', alignItems: 'center', padding: 2, marginTop: '10vh' }}>
     <div className={styles.wrapper}>
       {starModal && <StarModal handleModal={handleStarModal}/>}
     <div className={styles.profileHeader}>
@@ -29,6 +30,7 @@ const handleStarModal = () => setStarModal(!starModal)
     </div>
     <Previews/>
   </div>
+  </Box>
   )
 }
 
