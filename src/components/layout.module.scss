@@ -1,29 +1,27 @@
 @import '../mixins.scss';
-.wrapper{
-    background: rgb(230,255,189);
-    background: linear-gradient(53deg, rgba(230,255,189,1) 0%, rgba(170,254,44,1) 35%, rgba(24,74,126,1) 100%);
-width: 100vw;
-height: 100vh;
-@include maxWidth(650px){
+.wrapper {
+  background: $blue;
+  width: 100vw;
+  height: 100vh;
+  @include maxWidth(650px) {
     height: fit-content;
+  }
 }
-
-}
-.addMemo{
-    @include mainButton;
-    position: fixed;
-    bottom: 3%;
-    right: 3%;
-    width: 100px;
-    height: 100px;
-    background: $white;
-    border-radius: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid black;
-    z-index: 400;
-    img{
-        width: 4rem;
-    }
+.addMemo {
+  @include mainButton;
+  position: fixed;
+  bottom: 3%;
+  right: 3%;
+  width: 100px;
+  height: 100px;
+  background: $white;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  z-index: 400;
+  img {
+    width: 4rem;
+  }
 }
