@@ -22,15 +22,14 @@ const PostCard: React.FC<ResponsiveAppBarProps> = ({ content, profile, title }) 
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 0, display: 'flex', gap: 2 }}>
-            <Tooltip title="Open settings">
-              <IconButton size="large" sx={{ p: 0 }}>
-                <Avatar
-                  alt="Remy Sharp"
-                  sx={{ width: 60, height: 60 }}
-                  src={profile.picture ? profile.picture.original.url : 'https://ipfs.io/ipfs/QmY9dUwYu67puaWBMxRKW98LPbXCznPwHUbhX5NeWnCJbX'}
-                />
-              </IconButton>
-            </Tooltip>
+            <IconButton size="large" sx={{ p: 0 }}>
+              <Avatar
+                alt="Remy Sharp"
+                sx={{ width: 60, height: 60 }}
+                src={profile.picture ? profile.picture.original.url : 'https://ipfs.io/ipfs/QmY9dUwYu67puaWBMxRKW98LPbXCznPwHUbhX5NeWnCJbX'}
+              />
+            </IconButton>
+
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
               <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
                 <Typography sx={{ color: 'black', fontWeight: 500, fontSize: 18 }}>{title}</Typography>

@@ -20,7 +20,7 @@ const FilstersBox = () => {
         );
     };
     return (
-        <Box className={styles.box}>
+        <Box className={styles.box} style={{padding:16}}>
             <Box className={styles.boxs}>
                 <TextField id="outlined-basic" label="Search" variant="outlined" size="small" className={styles.input} />
             </Box>
@@ -32,10 +32,11 @@ const FilstersBox = () => {
                     multiple
                     value={categories}
                     onChange={handleCats}
+          
                     input={<OutlinedInput/>}
                     renderValue={(selected) => {
-                        if (selected.length === 0) {
-                            return <em>Categories</em>;
+                        if (!selected.length) {
+                            return <em>Categories</em>
                         }
                         return selected.join(', ');
                     }}
