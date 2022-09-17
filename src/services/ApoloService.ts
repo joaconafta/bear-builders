@@ -243,7 +243,7 @@ export const authenticate = (address: string, signature: string) => {
 }
 
 export const generateChallenge = async (address: string) => {
-  return apolloClient.query({
+  return await apolloClient.query({
     query: gql(GET_CHALLENGE),
     fetchPolicy: 'no-cache',
     variables: {
@@ -255,7 +255,7 @@ export const generateChallenge = async (address: string) => {
 }
 
 export const getProfiles = (address: string) => {
-  return apolloClientWithToken.query({
+  return apolloClient.query({
     query: gql(GET_PROFILES),
     fetchPolicy: 'no-cache',
     variables: {

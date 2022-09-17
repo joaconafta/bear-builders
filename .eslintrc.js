@@ -10,8 +10,8 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module'
   },
-  rules: {
-    camelcase: [2, { properties: 'always' }],
+  rules: { 
+  
     '@typescript-eslint/no-unused-vars': ['warn'],
     '@typescript-eslint/explicit-function-return-type': ['off'],
     '@typescript-eslint/no-non-null-assertion': ['off'],

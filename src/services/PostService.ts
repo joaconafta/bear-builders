@@ -65,6 +65,7 @@ export const createPost = async (profileId: string, contentURI: string) => {
   const typedData = result.data.createPostTypedData.typedData
   const signature = await signedTypeData(typedData.domain, typedData.types, typedData.value)
   const { v, r, s } = splitSignature(signature)
+
   const tx = await lensHub.postWithSig({
     profileId: typedData.value.profileId,
     contentURI: typedData.value.contentURI,

@@ -7,12 +7,19 @@ import useAccount from '../hooks/useAccount'
 import { createFollowTypedData } from '../services/FollowService'
 import { getAddressFromSigner, signedTypeData, splitSignature } from '../services/EtherService'
 import { lensHub } from '../services/lensHub'
+import { uploadToIpfs } from '../services/IpfsService'
 
 const Post: React.FC = () => {
   const { profile } = useAccount()
 
   const handlePost = async () => {
-    // await createPost(profile!.id, 'ipfs://QmQgv6rWdBe28fiqxkC88LTPKYHGVHp2Y9DvSF35tRgk4M')
+    try {
+      const contentUri = await uploadToIpfs()
+      console.log(contentUri)
+      await createPost(profile!.id, contentUri)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const handleFollow = async () => {
