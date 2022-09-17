@@ -2,7 +2,8 @@ import { ethers } from 'ethers'
 import React, { createContext, useEffect, useState } from 'react'
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker'
 import useLocalStorage from '../hooks/useLocalStorage'
-import { authenticate, createProfile, generateChallenge, getProfiles } from '../services/ApoloService'
+import { authenticate, createProfile, generateChallenge, getProfil, getProfiles } from '../services/ApoloService'
+import { getPublications } from '../services/PostService'
 import { ProfileType } from '../types/ProfileType'
 
 export interface AccountContextProps {
@@ -45,8 +46,10 @@ const AccountContextProvider: React.FC<AccountProviderProps> = ({ children }) =>
 
   const getProfile = async () => {
     const profiles = (await getProfiles(address!)).data.profiles.items
+
+    console.log('pub', await getPublications())
+
     if (!profiles.length) {
-      console.log(address)
       console.log('creando...')
       await createProfile()
       setProfile((await getProfiles(address!)).data.profiles.item[0])
