@@ -1,11 +1,13 @@
 import React from 'react'
 import styles from './previews.module.scss'
 import { Rating } from '@mui/material'
-const Previews = () => {
+import { useParams, useNavigate } from 'react-router-dom'
+const Previews = ({type, data}) => {
+  const navigate = useNavigate()
   return (
     <div className={styles.container}>
     <div className={styles.title}>Title</div>    
-        <div className={styles.card}>
+        <div className={styles.card} onClick={type === 'post' ? ()=> navigate(`/memo/${'id'}`) : null}>
         <div className={styles.cardsFeedPic}>
                     <div>
 

@@ -37,6 +37,7 @@ export const uploadToIpfs = async () => {
 
   console.log('hola')
   const result = await (ipfs as IPFSHTTPClient).add(JSON.stringify(metadata))
-
-  console.log(result)
+  return result.cid.toString()
+  //   console.log(result)
+  // }
 }

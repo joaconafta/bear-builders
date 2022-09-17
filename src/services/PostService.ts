@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 import { apolloClientWithToken as apolloClientWithToken } from './Apollo-Client'
 import { apolloClient } from './ApoloService'
 import { signedTypeData, getAddressFromSigner, splitSignature } from './EtherService'
-import { uploadToIpfs } from './IpfsService'
+// import { uploadToIpfs } from './IpfsService'
 import { lensHub } from './lensHub'
 
 const CREATE_POST_TYPED_DATA = `
@@ -65,6 +65,7 @@ export const createPost = async (profileId: string, contentURI: string) => {
   const typedData = result.data.createPostTypedData.typedData
   const signature = await signedTypeData(typedData.domain, typedData.types, typedData.value)
   const { v, r, s } = splitSignature(signature)
+
   const tx = await lensHub.postWithSig({
     profileId: typedData.value.profileId,
     contentURI: typedData.value.contentURI,

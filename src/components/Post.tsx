@@ -16,7 +16,7 @@ const Post: React.FC = () => {
     try {
       const contentUri = await uploadToIpfs()
       console.log(contentUri)
-      await createPost(profile!.id, 'ipfs://QmQgv6rWdBe28fiqxkC88LTPKYHGVHp2Y9DvSF35tRgk4M')
+      await createPost(profile!.id, contentUri)
     } catch (error) {
       console.log(error)
     }

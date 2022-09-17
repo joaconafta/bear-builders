@@ -7,10 +7,12 @@ import Logo from '../assets/starlensLogo.png'
 import LogoutButton from './LogoutButton'
 import MetaMaskConnectionButton from './MetaMaskConnectionButton'
 import PublicAddressContainer from './PublicAddressContainer'
-
+import UserNav from './UserNav'
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
     const [drawer, setDrawer] = useState({ right: false })
+    const navigate = useNavigate()
     const toggleDrawer = (anchor, open) => (event) => {
         if (
             event &&
@@ -25,39 +27,10 @@ const NavBar = () => {
     const { isLogged } = useAccount()
 
 
-    const list = (anchor) => (
-        <Box
-            sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
-            role="presentation"
-            onClick={toggleDrawer(anchor, false)}
-            onKeyDown={toggleDrawer(anchor, false)}
-        >
-            <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-            <Divider />
-            <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-        </Box>
-    );
+   
     return (
         <header className={styles.header}>
-            <div className={styles.brand}>
+            <div className={styles.brand} onClick={() => navigate('/')} >
             <img src={Logo} alt="" />
             <p>STARLENS</p>
             </div>
@@ -67,8 +40,7 @@ const NavBar = () => {
 
                 {isLogged ? (
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                    <PublicAddressContainer />
-                    <LogoutButton />
+                    <UserNav/>
                     </Box>
                 ) : (
                     <>
