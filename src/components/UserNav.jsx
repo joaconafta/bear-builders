@@ -3,10 +3,11 @@ import styles from './userNav.module.scss'
 import useAccount from '../hooks/useAccount';
 
 const UserDisplay = () => {
-const {address: account, logout } = useAccount()
+const {address: account, logout, profile } = useAccount()
     const [menu, setMenu] = useState(false)
     const [toggle, setToggle] = useState(false)
     const toggleNav = () => {
+      console.log(profile)
         if (!toggle) {
             setMenu(true)
           setTimeout(() => {
@@ -26,7 +27,7 @@ const {address: account, logout } = useAccount()
 
        
   return (<>
-  <img onClick={toggleNav} className={styles.profilePic} src={'user.avatar'}/>
+  <img onClick={toggleNav} className={styles.profilePic} src={profile?.picture.original.url}/>
   {toggle &&<nav className={ menu ? styles.profileNav : styles.profileNavOut}>
     <div onClick={()=> (console.log('sad'))}> {account?.slice(0, 5)}...{account?.slice(-5)}</div>
     <div>{`My Profile`}</div>

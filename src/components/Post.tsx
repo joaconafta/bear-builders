@@ -13,6 +13,7 @@ const Post: React.FC = () => {
   const { profile } = useAccount()
 
   const handlePost = async () => {
+<<<<<<< HEAD
     // try {
     //   const contentUri = await uploadToIpfs()
     //   console.log(contentUri)
@@ -20,6 +21,15 @@ const Post: React.FC = () => {
     // } catch (error) {
     //   console.log(error)
     // }
+=======
+    /*   try {
+      const contentUri = await uploadToIpfs()
+      console.log(contentUri)
+      await createPost(profile!.id, contentUri)
+    } catch (error) {
+      console.log(error)
+    } */
+>>>>>>> 4b05caed3130d930df172c581c1555c8a44bf0df
   }
 
   const handleFollow = async () => {
