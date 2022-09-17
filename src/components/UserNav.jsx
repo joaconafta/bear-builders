@@ -30,7 +30,7 @@ const {address: account, logout, profile } = useAccount()
 
        
   return (<>
-  <img onClick={toggleNav} className={styles.profilePic} src={profile?.picture.original.url}/>
+  <img onClick={toggleNav} className={styles.profilePic} src={profile?.picture?.original?.url || "https://ipfs.io/ipfs/QmY9dUwYu67puaWBMxRKW98LPbXCznPwHUbhX5NeWnCJbX"}/>
   {toggle &&<nav className={ menu ? styles.profileNav : styles.profileNavOut}>
     <div onClick={()=> (console.log('sad'))}> {account?.slice(0, 5)}...{account?.slice(-5)}</div>
     <div onClick={() => navigate(`/profiles/${profile.id}`)}>{`My Profile`}</div>

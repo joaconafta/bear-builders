@@ -52,6 +52,7 @@ const AccountContextProvider: React.FC<AccountProviderProps> = ({ children }) =>
       console.log('creando...')
       await createProfile()
       setProfile((await getProfiles(address!)).data.profiles.item[0])
+      window.location.reload()
     } else setProfile(profiles[0])
   }
 
