@@ -12,42 +12,9 @@ const Post: React.FC = () => {
   const { profile } = useAccount()
 
   const handlePost = async () => {
-    const createPostRequest = {
-      profileId: profile!.id,
-      contentURI: 'ipfs://QmQgv6rWdBe28fiqxkC88LTPKYHGVHp2Y9DvSF35tRgk4M',
-      collectModule: {
-        freeCollectModule: {
-          followerOnly: true
-        }
-      },
-      referenceModule: {
-        followerOnlyReferenceModule: false
-      }
-    }
-    console.log(profile?.id)
-    const result = await createPostTypedData(createPostRequest)
-    console.log(profile?.id)
-    const typedData = result.data.createPostTypedData.typedData
-
-    const signature = await signedTypeData(typedData.domain, typedData.types, typedData.value)
-    const { v, r, s } = splitSignature(signature)
-
-    const tx = await lensHub.postWithSig({
-      profileId: typedData.value.profileId,
-      contentURI: typedData.value.contentURI,
-      collectModule: typedData.value.collectModule,
-      collectModuleInitData: typedData.value.collectModuleInitData,
-      referenceModule: typedData.value.referenceModule,
-      referenceModuleInitData: typedData.value.referenceModuleInitData,
-      sig: {
-        v,
-        r,
-        s,
-        deadline: typedData.value.deadline
-      }
-    })
-    console.log(tx.hash)
+    await createPost(profile!.id, 'ipfs://QmQgv6rWdBe28fiqxkC88LTPKYHGVHp2Y9DvSF35tRgk4M')
   }
+
   const handleFollow = async () => {
     console.log(profile?.id)
     const result = await createFollowTypedData()
@@ -55,7 +22,6 @@ const Post: React.FC = () => {
     const typedData = result.data.createFollowTypedData.typedData
     const signature = await signedTypeData(typedData.domain, typedData.types, typedData.value)
     const { v, r, s } = splitSignature(signature)
-
     const tx = await lensHub.followWithSig({
       follower: getAddressFromSigner(),
       profileIds: typedData.value.profileIds,

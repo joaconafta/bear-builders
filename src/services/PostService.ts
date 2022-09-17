@@ -46,11 +46,10 @@ export const createPostTypedData = (createPostTypedDataRequest: any) => {
   })
 }
 
-export const createPost = async () => {
-  // hard coded to make the code example clear
+export const createPost = async (profileId: string, contentURI: string) => {
   const createPostRequest = {
-    profileId: '0x46c1',
-    contentURI: 'ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl',
+    profileId,
+    contentURI,
     collectModule: {
       freeCollectModule: {
         followerOnly: true
@@ -60,18 +59,11 @@ export const createPost = async () => {
       followerOnlyReferenceModule: false
     }
   }
-  const result = await createPostTypedData(createPostRequest)
-  console.log('resultttt ', result)
-  const typedData = result.data.createPostTypedData.typedData
 
+  const result = await createPostTypedData(createPostRequest)
+  const typedData = result.data.createPostTypedData.typedData
   const signature = await signedTypeData(typedData.domain, typedData.types, typedData.value)
   const { v, r, s } = splitSignature(signature)
-
-  console.log('signatureeee ', signature)
-  console.log('vvvvv ', v)
-  console.log('rrrrr ', r)
-  console.log('sssss ', s)
-
   const tx = await lensHub.postWithSig({
     profileId: typedData.value.profileId,
     contentURI: typedData.value.contentURI,
@@ -87,9 +79,6 @@ export const createPost = async () => {
     }
   })
   console.log(tx.hash)
-  // 0x64464dc0de5aac614a82dfd946fc0e17105ff6ed177b7d677ddb88ec772c52d3
-  // you can look at how to know when its been indexed here:
-  //   - https://docs.lens.dev/docs/has-transaction-been-indexed
 }
 
 const GET_PUBLICATIONS = `
