@@ -30,14 +30,14 @@ const PostCard: React.FC<ResponsiveAppBarProps> = ({ content, profile, title, po
               <Avatar
                 alt="Remy Sharp"
                 sx={{ width: 60, height: 60 }}
-                src={profile.picture ? profile.picture.original.url : 'https://ipfs.io/ipfs/QmY9dUwYu67puaWBMxRKW98LPbXCznPwHUbhX5NeWnCJbX'}
+                src={profile?.picture ? profile?.picture.original.url : 'https://ipfs.io/ipfs/QmY9dUwYu67puaWBMxRKW98LPbXCznPwHUbhX5NeWnCJbX'}
               />
             </IconButton>
 
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
               <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
                 <Typography sx={{ color: 'black', fontWeight: 500, fontSize: 18 }}>{title}</Typography>
-                <Typography sx={{ color: 'black', fontSize: 14 }}>{profile.handle}</Typography>
+                <Typography sx={{ color: 'black', fontSize: 14 }}>{profile?.handle}</Typography>
               </Box>
               <Typography sx={{ color: 'black' }}>{content}</Typography>
 
