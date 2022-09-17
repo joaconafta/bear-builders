@@ -5,13 +5,17 @@
     max-width: 1000px;
     display: flex;
     flex-wrap: wrap;
-    height: fit-content;
+  
     justify-content: space-between;
     height: 500px;
     overflow-y: auto;
    
     position: relative;
     padding-top: 5rem;
+    @include maxWidth(650px){
+   flex-direction: column;
+   height: fit-content;
+      }
 }
 
 .card {
@@ -31,6 +35,14 @@
         "desc desc desc desc desc desc"
         "desc desc desc desc desc desc"
     ;
+    @include maxWidth(650px){
+        
+        height: 150px;
+      }
+      @include maxWidth(650px){
+        height: 175px;
+        width: 100%;
+            }
 }
 
 .cardsFeedPic {
@@ -41,7 +53,7 @@
     flex-direction: column;
     padding: 2px 5px;
     font-size: .8rem;
-
+   
     &>div {
         width: 100px;
         height: 100px;
@@ -56,7 +68,10 @@
     font-size: .9rem;
     display: flex;
     justify-content: flex-end;
-
+    @include maxWidth(650px){
+      height: fit-content;
+      margin-top: 16px;
+      }
     p {
         margin-left: 5%;
     }
@@ -73,12 +88,19 @@
 
     p {
         font-size: 2rem;
+        @include maxWidth(650px){
+           font-size: 1.2rem;
+          }
     }
 
     &>span {
 
         margin-left: 10%;
         transform: scale(1.5);
+        @include maxWidth(650px){
+           transform: unset;
+           margin-left: 0;
+          }
     }
 }
 
@@ -97,3 +119,4 @@
     color: $blue;
     text-shadow: 3px 3px 2px $secondary-green;
 }
+
