@@ -11,7 +11,7 @@ export const getSigner = () => {
 }
 
 export const getAddressFromSigner = () => {
-  return getSigner()._address;
+  return getSigner().address;
 }
 
 export const init = async() => {
