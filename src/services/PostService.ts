@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client'
 import { apolloClientWithToken as apolloClientWithToken } from './Apollo-Client'
 import { signedTypeData, getAddressFromSigner, splitSignature } from './EtherService'
+import { uploadToIpfs } from './IpfsService'
 import { lensHub } from './lensHub'
 
 const CREATE_POST_TYPED_DATA = `
@@ -45,10 +46,11 @@ export const createPostTypedData = (createPostTypedDataRequest: any) => {
   })
 }
 
-export const createPost = async () => {
+export const createPost = async (profileId: string) => {
+  const ipfs = await uploadToIpfs()
   // hard coded to make the code example clear
   const createPostRequest = {
-    profileId: '0x46c1',
+    profileId: profileId,
     contentURI: 'https://t2.ea.ltmcdn.com/es/posts/1/3/2/como_hacer_feliz_a_tu_perro_24231_orig.jpg',
     collectModule: {
       freeCollectModule: {
