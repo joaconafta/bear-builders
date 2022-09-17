@@ -9,6 +9,7 @@ import Avatar from '@mui/material/Avatar'
 import Tooltip from '@mui/material/Tooltip'
 import { ProfileType } from '../types/ProfileType'
 import { Rating } from '@mui/material'
+import { useNavigate, useParams } from 'react-router-dom'
 
 interface ResponsiveAppBarProps {
   title: string
@@ -17,8 +18,10 @@ interface ResponsiveAppBarProps {
 }
 
 const PostCard: React.FC<ResponsiveAppBarProps> = ({ content, profile, title }) => {
+  const {id : any} = useParams()
+  const navigate : any = useNavigate()
   return (
-    <AppBar sx={{ background: 'white', borderRadius: 2, padding: 1 }} position="static">
+    <AppBar sx={{ background: 'white', borderRadius: 2, padding: 1 }} position="static" onClick={() => navigate(`/memo/${profile.id}`)}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 0, display: 'flex', gap: 2 }}>
