@@ -4,6 +4,11 @@ import useAccount from '../hooks/useAccount';
 import MenuIcon from '@mui/icons-material/Menu';
 import styles from './navBar.module.scss'
 import Logo from '../assets/starlensLogo.png'
+import LogoutButton from './LogoutButton'
+import MetaMaskConnectionButton from './MetaMaskConnectionButton'
+import PublicAddressContainer from './PublicAddressContainer'
+
+
 const NavBar = () => {
     const [drawer, setDrawer] = useState({ right: false })
     const toggleDrawer = (anchor, open) => (event) => {
@@ -17,6 +22,8 @@ const NavBar = () => {
 
         setDrawer(open);
     };
+    const { isLogged } = useAccount()
+
 
     const list = (anchor) => (
         <Box
@@ -56,9 +63,18 @@ const NavBar = () => {
             </div>
 
             <div>
-                <TextField id="outlined-basic" label="Outlined" variant="outlined" size="small" className={styles.input} />
+                {/* <TextField id="outlined-basic" label="Outlined" variant="outlined" size="small" className={styles.input} /> */}
 
-                <Button onClick={toggleDrawer('right', true)} className={styles.button}><MenuIcon /></Button>
+                {isLogged ? (
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                    <PublicAddressContainer />
+                    <LogoutButton />
+                    </Box>
+                ) : (
+                    <>
+                    <MetaMaskConnectionButton />
+                    </>
+                )}
             </div>
 
             {/* <Drawer
