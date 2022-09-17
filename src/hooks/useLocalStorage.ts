@@ -24,8 +24,10 @@ export default function useLocalStorage<T>(key: any, initialValue: any) {
       const valueToStore = value instanceof Function ? value(storedValue) : value
       // Save state
       setStoredValue(valueToStore)
+
       // Save to local storage
       window.localStorage.setItem(key, valueToStore)
+      if (valueToStore === null) window.localStorage.removeItem(key)
     } catch (error) {
       // A more advanced implementation would handle the error case
       console.log(error)
