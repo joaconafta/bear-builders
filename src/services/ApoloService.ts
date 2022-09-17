@@ -1,4 +1,5 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
+import { apolloClientWithToken } from './Apollo-Client'
 
 const APIURL = 'https://api-mumbai.lens.dev/'
 
@@ -271,30 +272,43 @@ export const getRecommendedProfiles = () => {
 }
 
 const CREATE_PROFILE = `
-  mutation($request: CreateProfileRequest!) { 
-    createProfile(request: $request) {
+mutation CreateProfile {
+    createProfile(request:{ 
+                  handle: "devjoshstevens",
+                  profilePictureUri: null,
+                  followNFTURI: null,
+                  followModule: null
+                  }) {
       ... on RelayerResult {
         txHash
       }
       ... on RelayError {
         reason
       }
-            __typename
+      __typename
     }
- }
+  }
 `
 
 export const createProfile = (handle: string) => {
   const createProfileRequest = {
     handle,
     profilePictureUri: 'https://ipfs.io/ipfs/QmY9dUwYu67puaWBMxRKW98LPbXCznPwHUbhX5NeWnCJbX',
-    followNFTURI: null,
-    followModule: null
+    followModule: {
+      freeFollowModule: true
+    }
   }
-  return apolloClient.mutate({
+  console.log(createProfileRequest)
+  return apolloClientWithToken.mutate({
     mutation: gql(CREATE_PROFILE),
     variables: {
-      request: createProfileRequest
+      request: {
+        handle,
+        profilePictureUri: 'https://ipfs.io/ipfs/QmY9dUwYu67puaWBMxRKW98LPbXCznPwHUbhX5NeWnCJbX',
+        followModule: {
+          freeFollowModule: true
+        }
+      }
     }
   })
 }
