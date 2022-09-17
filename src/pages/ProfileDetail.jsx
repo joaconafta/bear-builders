@@ -15,13 +15,12 @@ const ProfileDetail = () => {
       const init = async () => {
         setTimeout(async () => {
           const prof = (await getProfile(id)).data.profile
-          console.log('ACA',prof)
           setProfile(prof)
           
         }, 500);
       }
       init()
-  }, [])
+  }, [id])
   const [screenWidth, setScreenWidth] = useState(window.innerWidth)
   const handleWindowResize = useCallback(event => {
 
@@ -46,22 +45,6 @@ const ProfileDetail = () => {
           
           <div><p>{profile?.handle}</p></div>
           <div>
-        
-          <div className={styles.profileHeaderInfo}>
-            <p>Joaquin Naftaly {screenWidth <= 650 && <Rating name="half-rating" defaultValue={2.5} precision={0.5}  size='large' className={styles.starSize}/>}</p>
-            {screenWidth <= 650 && <div className={styles.followers}>
-              <div>
-                Followers: 20k
-              </div>
-              <div>
-                Following: 2k
-              </div>
-              <div>
-                <button>Follow</button> 
-              </div>
-            </div>
-            }
-          </div>
           
             {screenWidth >= 650 &&  <div> 
               <div className={styles.followers}>
@@ -84,8 +67,8 @@ const ProfileDetail = () => {
               <div><button className={styles.button}>Eventos</button><button className={styles.button}>Stars Received</button><button className={styles.button}>Stars Given</button></div>
             </div>
         </div>
+        </div>
         <Previews type={'post'}/>
-      </div>
       </div>
     </Box>
   )
