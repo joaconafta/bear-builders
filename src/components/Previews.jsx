@@ -4,6 +4,7 @@ import { Rating } from '@mui/material'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getPublications } from '../services/PostService'
 import useAccount from '../hooks/useAccount'
+import PostCard from './PostCard'
 const Previews = ({type, data}) => {
   const {id} = useParams()
   const navigate = useNavigate()
@@ -24,24 +25,9 @@ const Previews = ({type, data}) => {
   
   return (
     <div className={styles.container}>
-    {item.map((it, i) => {  
+    {item.map((post, i) => {  
     
-    return <div className={styles.card} onClick={type === 'post' ? ()=> navigate(`/memo/${it?.id}`) : null}>
-          <div className={styles.cardsFeedPic}>
-            <div>
-
-            </div>
-        
-          </div>
-          <div className={styles.cardsFeedTitle}>
-
-            <p>{it?.metadata?.name}</p>
-            <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} />
-          </div>
-          <div className={styles.cardsFeedDesc}>
-              <p>{it?.metadata?.content}</p>
-          </div>
-          </div>
+    return <PostCard content={post.metadata.content} profile={post.profile} title={post.metadata.name}></PostCard>
     })}
     </div>
   )
