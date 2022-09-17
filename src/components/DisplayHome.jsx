@@ -30,7 +30,7 @@ const DisplayHome = () => {
                 <div className="picCard" nClick={() => navigate(`/profiles/${prof.id}`)} style={{ background: `url(${image})` }}></div>
                 <div className={styles.featuredProf}>
                   <p onClick={() => navigate(`/profiles/${prof.id}`)}>{prof.handle}</p>
-                  <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
+                  <Rating name="half-rating-read"  defaultValue={2.5} precision={0.5} />
                 </div>
               </div>
             )

@@ -5,13 +5,12 @@
     max-width: 1000px;
     display: flex;
     flex-wrap: wrap;
-  
+  height: 100%;
     justify-content: space-between;
-    height: 500px;
     overflow-y: auto;
    
     position: relative;
-    padding-top: 5rem;
+
     @include maxWidth(650px){
    flex-direction: column;
    height: fit-content;
@@ -68,12 +67,14 @@
     font-size: .9rem;
     display: flex;
     justify-content: flex-end;
+    width: 100%;
     @include maxWidth(650px){
       height: fit-content;
       margin-top: 16px;
       }
     p {
-        margin-left: 5%;
+        padding: 10px;
+        width: 100%;
     }
 
 }
@@ -87,7 +88,7 @@
     gap: 1rem;
 
     p {
-        font-size: 2rem;
+        font-size: 1.5rem;
         @include maxWidth(650px){
            font-size: 1.2rem;
           }
@@ -116,7 +117,7 @@
     text-align: center;
     text-transform: uppercase;
     font-weight: 700;
-    color: $blue;
-    text-shadow: 3px 3px 2px $secondary-green;
+    color: $main-green;
+
 }
 

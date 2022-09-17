@@ -21,7 +21,7 @@ const handleStarModal = () => setStarModal(!starModal)
         <div><p>Bear-Hackaton</p></div>
         <div>
           <button onClick={handleStarModal}>Star This</button>
-          <Rating name="half-rating" defaultValue={2.5} precision={0.5}  size='large' className={styles.starSize}/>
+          <Rating name="half-rating-read" defaultValue={2.5} precision={0.5}  size='large' className={styles.starSize}/>
           </div>
           <div className='desc'>
             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est voluptate cum iste iure nobis perspiciatis illo nostrum recusandae saepe quia, modi pariatur voluptatem, eligendi quasi. Quidem quae optio cupiditate ab?</p>

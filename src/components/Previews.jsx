@@ -24,7 +24,6 @@ const Previews = ({type, data}) => {
   
   return (
     <div className={styles.container}>
-    <div className={styles.title}>Title</div> 
     {item.map((it, i) => {  
     
     return <div className={styles.card} onClick={type === 'post' ? ()=> navigate(`/memo/${'id'}`) : null}>
@@ -37,7 +36,7 @@ const Previews = ({type, data}) => {
           <div className={styles.cardsFeedTitle}>
 
             <p>{it?.metadata?.name}</p>
-            <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
+            <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} />
           </div>
           <div className={styles.cardsFeedDesc}>
               <p>{it?.metadata?.description}</p>

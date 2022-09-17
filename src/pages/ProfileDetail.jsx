@@ -37,33 +37,20 @@ const ProfileDetail = () => {
       };
     }, [handleWindowResize]);
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, justifyContent: 'center', alignItems: 'center', padding: 2, marginTop: '10vh' }}>
       <div className={styles.wrapper}>
         <div className={styles.profileHeader}>
-          <div className={styles.profilePic}>
+          <div className={styles.profilePic} style={{ background: `url(${profile.picture ? profile.picture.original.url : "https://ipfs.io/ipfs/QmY9dUwYu67puaWBMxRKW98LPbXCznPwHUbhX5NeWnCJbX"})`}}>
 
           </div>
           
-          <div><p>{profile?.handle}</p></div>
-          <div>
-        
+  
           <div className={styles.profileHeaderInfo}>
-            <p>Joaquin Naftaly {screenWidth <= 650 && <Rating name="half-rating" defaultValue={2.5} precision={0.5}  size='large' className={styles.starSize}/>}</p>
-            {screenWidth <= 650 && <div className={styles.followers}>
-              <div>
-                Followers: 20k
-              </div>
-              <div>
-                Following: 2k
-              </div>
-              <div>
-                <button>Follow</button> 
-              </div>
-            </div>
-            }
+        
+          <div >
+            <p>{profile?.handle}</p>
           </div>
           
-            {screenWidth >= 650 &&  <div> 
+            <div> 
               <div className={styles.followers}>
                 <div>
                   Followers: {profile?.stats?.totalFollowers}
@@ -75,19 +62,20 @@ const ProfileDetail = () => {
                   <button>Follow</button> 
                 </div>
               </div>
-              <Rating name="half-rating" defaultValue={2.5} precision={0.5}  size='large' className={styles.starSize}/>
+              <Rating name="half-rating-read"defaultValue={2.5} precision={0.5}  size='large' className={styles.starSize}/>
               </div>
-            }
+            
               
             <div className='desc'>
               <p>{profile?.bio}</p>
-              <div><button className={styles.button}>Eventos</button><button className={styles.button}>Stars Received</button><button className={styles.button}>Stars Given</button></div>
+              {/* <div><button className={styles.button}>Eventos</button><button className={styles.button}>Stars Received</button><button className={styles.button}>Stars Given</button></div> */}
             </div>
         </div>
-        <Previews type={'post'}/>
+       
       </div>
+      <Previews type={'post'}/>
       </div>
-    </Box>
+
   )
 }
 
