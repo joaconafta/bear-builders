@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Box } from '@mui/system'
-import { createPost, explorePublications } from '../services/PostService'
+import { explorePublications } from '../services/PostService'
 import styles from './displayHome.module.scss'
 import { useNavigate } from 'react-router-dom'
-import { Button, Rating } from '@mui/material'
 import useAccount from '../hooks/useAccount'
-import { createFollowTypedData } from '../services/FollowService'
-import { getAddressFromSigner, signedTypeData, splitSignature } from '../services/EtherService'
-import { lensHub } from '../services/lensHub'
+import PostCard from './PostCard'
 // import { uploadToIpfs } from '../services/IpfsService'
-import { uploadToIpfs } from '../services/IpfsService'
 
 const Post: React.FC = () => {
   const { profile } = useAccount()
@@ -55,19 +50,9 @@ const Post: React.FC = () => {
           <div className={styles.featuredFeed}>
             {latestPost?.map((post: any, i) => {
               return (
-                <div className={styles.cardsFeed} key={i}>
-                  <div className={styles.cardsFeedPic} onClick={() => navigate(`/profiles/${post.profile.id}`)}>
-                    <div></div>
-                    <p>{post.profile.handle}</p>
-                  </div>
-                  <div className={styles.cardsFeedTitle}>
-                    <p onClick={() => navigate(`/memo/${post.id}`)}>{post.metadata.name}</p>
-                    <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
-                  </div>
-                  <div className={styles.cardsFeedDesc}>
-                    <p>{post.metadata.content}</p>
-                  </div>
-                </div>
+                <>
+                  <PostCard content={post.metadata.content} profile={post.profile} title={post.metadata.name}></PostCard>
+                </>
               )
             })}
           </div>
