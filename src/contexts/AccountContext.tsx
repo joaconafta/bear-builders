@@ -46,16 +46,21 @@ const AccountContextProvider: React.FC<AccountProviderProps> = ({ children }) =>
   const getProfile = async () => {
     const profiles = (await getProfiles(address!)).data.profiles.items
     if (!profiles.length) {
+      console.log(address)
       console.log('creando...')
       await createProfile()
-      console.log(await getProfiles(address!))
       setProfile((await getProfiles(address!)).data.profiles.item[0])
     } else setProfile(profiles[0])
   }
 
   const getToken = async (address: string) => {
+    console.log(address, 'c')
+    console.log(await generateChallenge(address))
+    console.log(address, 'd')
     const challenge = (await generateChallenge(address)).data.challenge.text
+    console.log(address, 'c')
     const signature = await trackPromise(ethersProvider.getSigner().signMessage(challenge), 'login')
+
     const token = await trackPromise(authenticate(address, signature), 'login')
     setJsonToken(token.data.authenticate.accessToken)
     setAddress(address)
@@ -63,11 +68,11 @@ const AccountContextProvider: React.FC<AccountProviderProps> = ({ children }) =>
 
   useEffect(() => {
     const feach = async () => {
-      /* try { */
-      address && (await getProfile())
-      /*  } catch (error) {
+      try {
+        address && (await getProfile())
+      } catch (error) {
         console.log(error)
-      } */
+      }
     }
     feach()
   }, [address])

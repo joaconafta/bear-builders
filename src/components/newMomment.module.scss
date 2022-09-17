@@ -12,7 +12,7 @@
 
 .modal{
 width: 100%;
-max-width: 400px;
+max-width: 700px;
 height: 100%;
 max-height: 500px;
 background: $white;
@@ -37,4 +37,38 @@ justify-content: space-evenly;
         color: $white;
         filter: brightness(0) invert(1);
     }
+}
+
+.inputs{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 80%;
+}
+
+.buttons{
+    display: flex;
+    align-self: flex-end;
+    margin-right: -2%;
+    width: 50%;
+    gap: 1.5rem;
+    button{
+        &:first-child{
+            @include mainButton;
+            background: red;
+        }
+        &:last-child{
+            @include mainButton;
+            background: $main-green;
+            color: $blue;
+        }
+           
+        
+    }
+}
+.title{
+    align-self: flex-start;
+    margin-left: 10%;
+    font-size: 1.5rem;
+    font-weight: 700;
 }

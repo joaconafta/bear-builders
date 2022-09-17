@@ -15,7 +15,7 @@ const MetaMaskConnectionButton: React.FC = () => {
     try {
       const accounts: string[] = await trackPromise(ethereum.request({ method: 'eth_requestAccounts' }), 'login')
       const address = accounts[0]
-
+      console.log(address)
       await login(address)
     } catch (e) {
       console.log(e)
@@ -36,8 +36,8 @@ const MetaMaskConnectionButton: React.FC = () => {
 
   return (
     <LoadingButton variant="contained" loading={promiseInProgress} onClick={connect}>
-        <img height="16" width="16" src={LensLogo} alt="Lens Logo"></img>
-        <p> Sign-In with Lens</p>
+      <img height="16" width="16" src={LensLogo} alt="Lens Logo"></img>
+      <p> Sign-In with Lens</p>
     </LoadingButton>
   )
 }
