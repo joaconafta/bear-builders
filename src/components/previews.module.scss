@@ -11,6 +11,7 @@
    
     position: relative;
 
+    padding-bottom: 200px;
     @include maxWidth(650px){
    flex-direction: column;
    height: fit-content;

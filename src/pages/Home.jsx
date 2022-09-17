@@ -9,7 +9,7 @@ const Home= () => {
   const { profile } = useAccount()
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, justifyContent: 'center', alignItems: 'center', padding: 2 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, justifyContent: 'center', alignItems: 'center', padding: 2 , height : '100%', paddingBottom : 0}}>
 {/*         <Typography variant="h6">{profile? profile.handle : "Sin perfil"}</Typography>
         <Post/> */}
       <FilstersBox/>

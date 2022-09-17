@@ -5,9 +5,7 @@
   height: 100vh;
   overflow: hidden;
   position: relative;
-  @include maxWidth(650px) {
-    height: fit-content;
-  }
+
 }
 .addMemo {
   @include mainButton;
