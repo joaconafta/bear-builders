@@ -11,7 +11,7 @@ const [newMomment, setNewMomment] = useState(true)
   return (
     <div className={styles.wrapper}>
       {/* {loginModal && <LoginModal/>} */}
-      { newMomment && <NewMomment/>}
+      {/* { newMomment && <NewMomment/>} */}
       <button className={styles.addMemo}>
       <img src={addMemo} alt="" />
       </button>
