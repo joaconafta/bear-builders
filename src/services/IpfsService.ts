@@ -2,18 +2,24 @@ import { create, CID, IPFSHTTPClient } from 'ipfs-http-client'
 import { v4 as uuidv4 } from 'uuid'
 
 export const uploadToIpfs = async () => {
+  console.log('arranca...')
+  const auth = 'Basic ' + Buffer.from('2EtmssEEVuUmjGjyOZlgY8Umij0' + ':' + '15ecec7a77558fa48a45582898213cd6').toString('base64')
   // const ipfs = await IPFS.create()
   let ipfs: IPFSHTTPClient | undefined
   try {
     ipfs = create({
-      url: 'https://ipfs.infura.io:5001/api/v0'
+      url: 'https://ipfs.infura.io:5001/api/v0',
+      headers: {
+        authorization: auth
+      }
     })
+    console.log('hola', create)
   } catch (error) {
     console.error('IPFS error ', error)
     ipfs = undefined
   }
 
-  let metadata = {
+  const metadata = {
     version: '1.0.0',
     metadata_id: uuidv4(),
     description: 'This should be stored on-chain and showed to next generations.',
@@ -29,7 +35,8 @@ export const uploadToIpfs = async () => {
     appId: 'Lenstube'
   }
 
-  const result = await (ipfs as IPFSHTTPClient).add(metadata)
+  console.log('hola')
+  const result = await (ipfs as IPFSHTTPClient).add(JSON.stringify(metadata))
 
   console.log(result)
 }
