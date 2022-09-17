@@ -1,0 +1,98 @@
+@import '../mixins.scss';
+
+.container {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    flex-wrap: wrap;
+    height: fit-content;
+    justify-content: space-between;
+    height: 500px;
+    overflow-y: auto;
+   
+    position: relative;
+    padding-top: 5rem;
+}
+
+.card {
+    width: 45%;
+    height: 250px;
+    border-radius: 1rem;
+    background: white;
+    margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+        "pic pic title title title title"
+        "pic pic title title title title"
+        "desc desc desc desc desc desc"
+        "desc desc desc desc desc desc"
+    ;
+}
+
+.cardsFeedPic {
+    grid-area: pic;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 2px 5px;
+    font-size: .8rem;
+
+    &>div {
+        width: 100px;
+        height: 100px;
+        border-radius: 100%;
+        background: $blue;
+    }
+
+}
+
+.cardsFeedDesc {
+    grid-area: desc;
+    font-size: .9rem;
+    display: flex;
+    justify-content: flex-end;
+
+    p {
+        margin-left: 5%;
+    }
+
+}
+
+.cardsFeedTitle {
+    grid-area: title;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 1rem;
+
+    p {
+        font-size: 2rem;
+    }
+
+    &>span {
+
+        margin-left: 10%;
+        transform: scale(1.5);
+    }
+}
+
+.title{
+    position: absolute;
+    top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 1rem;
+    font-size: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: $blue;
+    text-shadow: 3px 3px 2px $secondary-green;
+}

@@ -57,7 +57,7 @@ const NavBar = () => {
     );
     return (
         <header className={styles.header}>
-            <div>
+            <div className={styles.brand}>
             <img src={Logo} alt="" />
             <p>STARLENS</p>
             </div>

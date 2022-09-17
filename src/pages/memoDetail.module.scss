@@ -1,6 +1,5 @@
 @import '../mixins.scss';
-
-.wrapper {
+.wrapper{
     width: 100%;
     display: flex;
     align-items: center;
@@ -8,7 +7,6 @@
     flex-direction: column;
     gap: 2rem;
 }
-
 .profileHeader {
     width: 100%;
     max-width: 1000px;
@@ -33,6 +31,9 @@
             flex-direction: column;
             align-items: flex-end;
             gap: 1rem;
+            button{
+                @include mainButton
+            }
             &>span{
                 transform: scale(1.2);
                 margin-right: 8px;
@@ -96,31 +97,21 @@
 
     }
 }
-
-.profilePic {
+.profilePic{
     width: 200px;
     height: 200px;
     border-radius: 100%;
     border: 1px solid black;
     position: absolute;
     margin-left: auto;
+margin-right: auto;
+left: 0;
+right: 0;
+top: -4rem;
+background: $white;
+    margin-left: auto;
     margin-right: auto;
-    left: 0;
-    right: 0;
-    top: -4rem;
-    background: $white;
-   
 }
+.profileHeaderInfo{
 
-.button {
-    @include mainButton
-}
-.followers{
-    display: flex;
-    font-size: 1rem;
-    gap: 1rem;
-    align-items: center;
-    button{
-        @include mainButton
-    }
 }

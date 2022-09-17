@@ -1,4 +1,5 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
+import { apolloClientWithToken } from './Apollo-Client'
 
 const APIURL = 'https://api-mumbai.lens.dev/'
 
@@ -231,6 +232,7 @@ const RECOMMENDED_PROFILES = `
 export const authenticate = (address: string, signature: string) => {
   return apolloClient.mutate({
     mutation: gql(AUTHENTICATION),
+    fetchPolicy: 'no-cache',
     variables: {
       request: {
         address,
@@ -240,8 +242,8 @@ export const authenticate = (address: string, signature: string) => {
   })
 }
 
-export const generateChallenge = (address: string) => {
-  return apolloClient.query({
+export const generateChallenge = async (address: string) => {
+  return await apolloClient.query({
     query: gql(GET_CHALLENGE),
     fetchPolicy: 'no-cache',
     variables: {
@@ -255,6 +257,7 @@ export const generateChallenge = (address: string) => {
 export const getProfiles = (address: string) => {
   return apolloClient.query({
     query: gql(GET_PROFILES),
+    fetchPolicy: 'no-cache',
     variables: {
       request: {
         ownedBy: [address],
@@ -265,49 +268,130 @@ export const getProfiles = (address: string) => {
 }
 
 export const getRecommendedProfiles = () => {
-  return apolloClient.query({
+  return apolloClientWithToken.query({
+    fetchPolicy: 'no-cache',
     query: gql(RECOMMENDED_PROFILES)
   })
 }
 
 const CREATE_PROFILE = `
-mutation CreateProfile {
-    createProfile(request:{ 
-                  handle: "devjoshstevens",
-                  profilePictureUri: null,
-                  followNFTURI: null,
-                  followModule: null
-                  }) {
+  mutation($request: CreateProfileRequest!) { 
+    createProfile(request: $request) {
       ... on RelayerResult {
         txHash
       }
       ... on RelayError {
         reason
       }
-      __typename
+            __typename
+    }
+ }
+`
+export const createProfile = () => {
+  return apolloClientWithToken.mutate({
+    mutation: gql(CREATE_PROFILE),
+    fetchPolicy: 'no-cache',
+    variables: {
+      request: {
+        handle: 'Test' + Math.floor(Math.random() * 1000000),
+        profilePictureUri: null,
+        followNFTURI: null,
+        followModule: null
+      }
+    }
+  })
+}
+
+const GET_PROFILE = `
+  query($request: SingleProfileQueryRequest!) {
+    profile(request: $request) {
+        id
+        name
+        bio
+        attributes {
+          displayType
+          traitType
+          key
+          value
+        }
+        followNftAddress
+        metadata
+        isDefault
+        picture {
+          ... on NftImage {
+            contractAddress
+            tokenId
+            uri
+            verified
+          }
+          ... on MediaSet {
+            original {
+              url
+              mimeType
+            }
+          }
+          __typename
+        }
+        handle
+        coverPicture {
+          ... on NftImage {
+            contractAddress
+            tokenId
+            uri
+            verified
+          }
+          ... on MediaSet {
+            original {
+              url
+              mimeType
+            }
+          }
+          __typename
+        }
+        ownedBy
+        dispatcher {
+          address
+          canUseRelay
+        }
+        stats {
+          totalFollowers
+          totalFollowing
+          totalPosts
+          totalComments
+          totalMirrors
+          totalPublications
+          totalCollects
+        }
+        followModule {
+          ... on FeeFollowModuleSettings {
+            type
+            amount {
+              asset {
+                symbol
+                name
+                decimals
+                address
+              }
+              value
+            }
+            recipient
+          }
+          ... on ProfileFollowModuleSettings {
+            type
+          }
+          ... on RevertFollowModuleSettings {
+            type
+          }
+        }
     }
   }
 `
 
-export const createProfile = (handle: string) => {
-  const createProfileRequest = {
-    handle,
-    profilePictureUri: 'https://ipfs.io/ipfs/QmY9dUwYu67puaWBMxRKW98LPbXCznPwHUbhX5NeWnCJbX',
-    followModule: {
-      freeFollowModule: true
-    }
-  }
-  console.log(createProfileRequest)
-  return apolloClient.mutate({
-    mutation: gql(CREATE_PROFILE),
+export const getProfil = () => {
+  return apolloClient.query({
+    query: gql(GET_PROFILE),
     variables: {
-      request: {
-        handle,
-        profilePictureUri: 'https://ipfs.io/ipfs/QmY9dUwYu67puaWBMxRKW98LPbXCznPwHUbhX5NeWnCJbX',
-        followModule: {
-          freeFollowModule: true
-        }
-      }
+      request: { profileId: '0x46bf' }
     }
   })
 }

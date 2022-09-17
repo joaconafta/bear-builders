@@ -2,7 +2,8 @@ import { ethers } from 'ethers'
 import React, { createContext, useEffect, useState } from 'react'
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker'
 import useLocalStorage from '../hooks/useLocalStorage'
-import { authenticate, createProfile, generateChallenge, getProfiles } from '../services/ApoloService'
+import { authenticate, createProfile, generateChallenge, getProfil, getProfiles } from '../services/ApoloService'
+import { getPublications } from '../services/PostService'
 import { ProfileType } from '../types/ProfileType'
 
 export interface AccountContextProps {
@@ -44,18 +45,25 @@ const AccountContextProvider: React.FC<AccountProviderProps> = ({ children }) =>
   }
 
   const getProfile = async () => {
-    let profiles = (await getProfiles(address!)).data.profiles.items
+    const profiles = (await getProfiles(address!)).data.profiles.items
+
+    console.log('pub', await getPublications())
+
     if (!profiles.length) {
       console.log('creando...')
-      console.log(await createProfile('Test'))
-      profiles = (await getProfiles(address!)).data.profiles.item
-      console.log('creado', profiles)
+      await createProfile()
+      setProfile((await getProfiles(address!)).data.profiles.item[0])
     } else setProfile(profiles[0])
   }
 
   const getToken = async (address: string) => {
+    console.log(address, 'c')
+    console.log(await generateChallenge(address))
+    console.log(address, 'd')
     const challenge = (await generateChallenge(address)).data.challenge.text
+    console.log(address, 'c')
     const signature = await trackPromise(ethersProvider.getSigner().signMessage(challenge), 'login')
+
     const token = await trackPromise(authenticate(address, signature), 'login')
     setJsonToken(token.data.authenticate.accessToken)
     setAddress(address)
@@ -63,11 +71,11 @@ const AccountContextProvider: React.FC<AccountProviderProps> = ({ children }) =>
 
   useEffect(() => {
     const feach = async () => {
-      /* try { */
-      address && (await getProfile())
-      /*  } catch (error) {
+      try {
+        address && (await getProfile())
+      } catch (error) {
         console.log(error)
-      } */
+      }
     }
     feach()
   }, [address])
