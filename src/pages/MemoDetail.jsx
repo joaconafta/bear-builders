@@ -3,11 +3,15 @@ import styles from './memoDetail.module.scss'
 import { Rating } from '@mui/material'
 import Previews from '../components/Previews'
 import StarModal from '../components/StarModal'
+import { useParams } from 'react-router-dom'
 const MemoDetail = () => {
 const [starModal, setStarModal] = useState(false)
+let { memoId } = useParams();
+
+const handleStarModal = () => setStarModal(!starModal)
   return (
     <div className={styles.wrapper}>
-      {starModal && <StarModal/>}
+      {starModal && <StarModal handleModal={handleStarModal}/>}
     <div className={styles.profileHeader}>
       <div className={styles.profilePic}>
 
@@ -15,7 +19,7 @@ const [starModal, setStarModal] = useState(false)
       
         <div><p>Bear-Hackaton</p></div>
         <div>
-          <button>Star This</button>
+          <button onClick={handleStarModal}>Star This</button>
           <Rating name="half-rating" defaultValue={2.5} precision={0.5}  size='large' className={styles.starSize}/>
           </div>
           <div className='desc'>

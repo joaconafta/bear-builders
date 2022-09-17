@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './starModal.module.scss'
 import { Rating } from '@mui/material'
-const StarModal = () => {
+const StarModal = ({handleModal}) => {
   return (
     <div className={styles.modalContainer}>
         <div className={styles.modal}>
@@ -13,7 +13,7 @@ const StarModal = () => {
                 <textarea name="" id="" cols="30" rows="10"></textarea>
             </div>
             <div className={styles.buttons}>
-                <button>Cancel</button>
+                <button onClick={handleModal}>Cancel</button>
                 <button>Confirm</button>
             </div>
         </div>

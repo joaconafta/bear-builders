@@ -2,7 +2,11 @@ import React from 'react'
 import styles from './profileDetail.module.scss'
 import { Rating } from '@mui/material'
 import Previews from '../components/Previews'
+import { useParams, useNavigate } from 'react-router-dom'
+
 const ProfileDetail = () => {
+  const {profileID} = useParams()
+  const navigate = useNavigate()
   return (
     <div className={styles.wrapper}>
       <div className={styles.profileHeader}>
@@ -30,7 +34,7 @@ const ProfileDetail = () => {
             <div><button className={styles.button}>Eventos</button><button className={styles.button}>Stars Received</button><button className={styles.button}>Stars Given</button></div>
           </div>
       </div>
-      <Previews/>
+      <Previews type={'post'}/>
     </div>
   )
 }
