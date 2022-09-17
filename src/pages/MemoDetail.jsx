@@ -22,7 +22,10 @@ useEffect(() => {
 
 const handlePostById = async () => {
   try {
-    setPost((await getPublication(id)).data.publication)
+    const a = (await getPublication(id)).data.publication
+    console.log(a)
+    setPost(a)
+    console.log(post)
   } catch (error) {
     console.log(error)
   }

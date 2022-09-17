@@ -27,7 +27,7 @@ const Previews = ({type, data}) => {
     <div className={styles.container}>
     {item.map((post, i) => {  
     
-    return <PostCard content={post.metadata.content} profile={post.profile} title={post.metadata.name}></PostCard>
+    return <PostCard content={post.metadata.content} profile={post.profile} title={post.metadata.name} post={post}></PostCard>
     })}
     </div>
   )

@@ -15,13 +15,14 @@ interface ResponsiveAppBarProps {
   title: string
   profile: ProfileType
   content: string
+  post: {id: string}
 }
 
-const PostCard: React.FC<ResponsiveAppBarProps> = ({ content, profile, title }) => {
+const PostCard: React.FC<ResponsiveAppBarProps> = ({ content, profile, title, post }) => {
   const {id : any} = useParams()
   const navigate : any = useNavigate()
   return (
-    <AppBar sx={{ background: 'white', borderRadius: 2, padding: 1 }} position="static" onClick={() => navigate(`/memo/${profile.id}`)}>
+    <AppBar sx={{ background: 'white', borderRadius: 2, padding: 1 , maxHeight : 150, height : 'fit-content'}} position="static" onClick={() => navigate(`/memo/${post.id}`)}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 0, display: 'flex', gap: 2 }}>
