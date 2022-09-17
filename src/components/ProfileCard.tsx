@@ -11,7 +11,7 @@ import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import { ProfileType } from '../types/ProfileType'
 import { Rating } from '@mui/material'
-
+import { useNavigate } from 'react-router-dom'
 const pages = ['Products', 'Pricing', 'Blog']
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
@@ -22,7 +22,7 @@ interface ResponsiveAppBarProps {
 const ResponsiveAppBar: React.FC<ResponsiveAppBarProps> = ({ profile }) => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
-
+const navigate : any = useNavigate()
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
   }
@@ -39,11 +39,11 @@ const ResponsiveAppBar: React.FC<ResponsiveAppBarProps> = ({ profile }) => {
   }
 
   return (
-    <AppBar sx={{ background: 'white', borderRadius: 2 }} position="static">
+    <AppBar sx={{ background: 'white', borderRadius: 2 }} position="static" onClick={() => navigate(`/profiles/${profile.id}`)}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 0, display: 'flex', gap: 2 }}>
-            <Tooltip title="Open settings">
+          
               <IconButton onClick={handleOpenUserMenu} size="large" sx={{ p: 0 }}>
                 <Avatar
                   alt="Remy Sharp"
@@ -51,7 +51,7 @@ const ResponsiveAppBar: React.FC<ResponsiveAppBarProps> = ({ profile }) => {
                   src={profile.picture ? profile.picture.original.url : 'https://ipfs.io/ipfs/QmY9dUwYu67puaWBMxRKW98LPbXCznPwHUbhX5NeWnCJbX'}
                 />
               </IconButton>
-            </Tooltip>
+
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
               <Typography sx={{ color: 'black' }}>{profile.handle}</Typography>
               <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
