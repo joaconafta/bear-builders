@@ -1,13 +1,32 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import styles from './memoDetail.module.scss'
 import { Rating } from '@mui/material'
 import Previews from '../components/Previews'
 import StarModal from '../components/StarModal'
 import { useParams } from 'react-router-dom'
 import {Box} from '@mui/material'
+import { getPublication } from '../services/PostService'
+
 const MemoDetail = () => {
 const [starModal, setStarModal] = useState(false)
-let { memoId } = useParams();
+const [post, setPost] = useState([])
+let { id } = useParams();
+
+useEffect(() => {
+  const fetch = async () => {
+    await handlePostById()
+  }
+
+  fetch()
+}, [])
+
+const handlePostById = async () => {
+  try {
+    setPost((await getPublication(id)).data.publication)
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 const handleStarModal = () => setStarModal(!starModal)
   return (<Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, justifyContent: 'center', alignItems: 'center', padding: 2, marginTop: '10vh' }}>
@@ -18,13 +37,13 @@ const handleStarModal = () => setStarModal(!starModal)
 
       </div>
       
-        <div><p>Bear-Hackaton</p></div>
+        <div><p>{post?.metadata?.name}</p></div>
         <div>
           <button onClick={handleStarModal}>Star This</button>
           <Rating name="half-rating" defaultValue={2.5} precision={0.5}  size='large' className={styles.starSize}/>
           </div>
           <div className='desc'>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est voluptate cum iste iure nobis perspiciatis illo nostrum recusandae saepe quia, modi pariatur voluptatem, eligendi quasi. Quidem quae optio cupiditate ab?</p>
+            <p>{post?.metadata?.description}</p>
             <div><p>Created by <span>Joaco Naftaly</span></p></div>
           </div>
     </div>
