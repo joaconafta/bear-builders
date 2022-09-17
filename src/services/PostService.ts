@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client'
+import { ProfileType } from '../types/ProfileType'
 import { apolloClientWithToken as apolloClientWithToken } from './Apollo-Client'
 import { signedTypeData, getAddressFromSigner, splitSignature } from './EtherService'
 import { lensHub } from './lensHub'
@@ -45,11 +46,11 @@ export const createPostTypedData = (createPostTypedDataRequest: any) => {
   })
 }
 
-export const createPost = async () => {
+export const createPost = async (profile: ProfileType) => {
   // hard coded to make the code example clear
   const createPostRequest = {
-    profileId: '0x46c1',
-    contentURI: 'https://t2.ea.ltmcdn.com/es/posts/1/3/2/como_hacer_feliz_a_tu_perro_24231_orig.jpg',
+    profileId: profile.id,
+    contentURI: 'ipfs://QmP9QAeZijDsPFFQQNgZhANWAw64yY87vtUz4AgQF1SZ3M',
     collectModule: {
       freeCollectModule: {
         followerOnly: true
@@ -60,16 +61,10 @@ export const createPost = async () => {
     }
   }
   const result = await createPostTypedData(createPostRequest)
-  console.log('resultttt ', result)
   const typedData = result.data.createPostTypedData.typedData
 
   const signature = await signedTypeData(typedData.domain, typedData.types, typedData.value)
   const { v, r, s } = splitSignature(signature)
-
-  console.log('signatureeee ', signature)
-  console.log('vvvvv ', v)
-  console.log('rrrrr ', r)
-  console.log('sssss ', s)
 
   const tx = await lensHub.postWithSig({
     profileId: typedData.value.profileId,

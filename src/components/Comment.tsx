@@ -1,24 +1,23 @@
 import React from 'react'
 import { Box } from '@mui/system'
-import { createPost } from '../services/PostService'
 import { Button } from '@mui/material'
+import { createComment } from '../services/CommentService'
 import useAccount from '../hooks/useAccount'
 
-const Post: React.FC = () => {
+const Comment: React.FC = () => {
 
   const { profile } = useAccount()
 
-  const handlePost = async () => {
+  const handleComment = async () => {
     if(!profile) throw new Error('You are not logged')
-    await createPost(profile)
+    await createComment(profile)
   }
 
   return (
     <Box >
-      Post:
-        <Button onClick={() => handlePost()}>Create Post</Button>
+        <Button onClick={() => handleComment()}>Create comment</Button>
     </Box>
   )
 }
 
-export default Post
+export default Comment

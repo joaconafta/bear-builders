@@ -4,6 +4,7 @@ import useAccount from '../hooks/useAccount'
 import FilstersBox from '../components/filtersBox'
 import DisplayHome from '../components/DisplayHome'
 import Post from '../components/Post'
+import Comment from '../components/Comment'
 const Home= () => {
   const { profile } = useAccount()
 
@@ -14,6 +15,7 @@ const Home= () => {
       <FilstersBox/>
       <DisplayHome/>
       <Post/>
+      <Comment/>
     </Box>
   )
 }
