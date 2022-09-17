@@ -21,7 +21,7 @@ export const uploadToIpfs = async (title: string, category: string, body: string
 
   const metadata = {
     version: '1.0.0',
-    metadata_id: uuidv4(),
+    metadata_id: '12dsfgsdgfsgsfadfads92ea41c6-bdf8-4866-a031-6de1d7b01d0e',
     description: category,
     content: body,
     external_url: null,
@@ -35,14 +35,14 @@ export const uploadToIpfs = async (title: string, category: string, body: string
       { item: 'https://ipfs.infura.io/ipfs/QmNMYMMBiMWbPUJKU6M2dRUScX4xniB99eKVRrtERqT96i', type: 'video/mp4' },
       { item: 'https://livepeercdn.com/asset/746b9zxagtln4u54/video', type: 'video/mp4' }
     ],
-    appId: 'Lenstube'
+    appId: 'starlens'
   }
 
   console.log('hola')
   const result = await (ipfs as IPFSHTTPClient).add(JSON.stringify(metadata))
   console.log('result', result, result.path)
   /* return 'ipfs://QmQgv6rWdBe28fiqxkC88LTPKYHGVHp2Y9DvSF35tRgk4M' */
-  return result.path
+  return 'ipfs://' + result.path
   //   console.log(result)
   // }
 }

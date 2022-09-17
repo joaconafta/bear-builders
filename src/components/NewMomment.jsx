@@ -6,6 +6,7 @@ import { createPost } from '../services/PostService'
 import useAccount from '../hooks/useAccount'
 import { LoadingButton } from '@mui/lab'
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker'
+import { uploadToIpfs } from '../services/IpfsService'
 const NewMomment = ({ handleModal, isProfile }) => {
 
   const { promiseInProgress } = usePromiseTracker({ area: 'post' })
@@ -19,14 +20,14 @@ const NewMomment = ({ handleModal, isProfile }) => {
  const [body, setBody] = useState("")
 
   const handlePost = async () => {
-    // try {
-    //   const contentUri = await trackPromise(uploadToIpfs(title,categories,body), 'post')
-    //   console.log(contentUri)
-    //    await trackPromise(createPost(profile.id, contentUri), "post")
-    //    handleModal()
-    // } catch (error) {
-    //   console.log(error)
-    // }
+     try {
+       const contentUri = await trackPromise(uploadToIpfs(title,categories,body), 'post')
+       console.log(contentUri)
+        await trackPromise(createPost(profile.id, contentUri), "post")
+        handleModal()
+     } catch (error) {
+       console.log(error)
+     }
   }
 
   return (
