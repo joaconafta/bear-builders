@@ -56,12 +56,12 @@ const Post: React.FC = () => {
             {latestPost?.map((post: any, i) => {
               return (
                 <div className={styles.cardsFeed} key={i}>
-                  <div className={styles.cardsFeedPic} onClick={() => navigate(`/profiles/${'id'}`)}>
+                  <div className={styles.cardsFeedPic} onClick={() => navigate(`/profiles/${post.profile.id}`)}>
                     <div></div>
                     <p>{post.profile.handle}</p>
                   </div>
                   <div className={styles.cardsFeedTitle}>
-                    <p onClick={() => navigate(`/memo/${'id'}`)}>{post.metadata.name}</p>
+                    <p onClick={() => navigate(`/memo/${post.id}`)}>{post.metadata.name}</p>
                     <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
                   </div>
                   <div className={styles.cardsFeedDesc}>
