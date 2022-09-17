@@ -13,13 +13,13 @@ const Post: React.FC = () => {
   const { profile } = useAccount()
 
   const handlePost = async () => {
-    try {
+    /*   try {
       const contentUri = await uploadToIpfs()
       console.log(contentUri)
       await createPost(profile!.id, contentUri)
     } catch (error) {
       console.log(error)
-    }
+    } */
   }
 
   const handleFollow = async () => {
