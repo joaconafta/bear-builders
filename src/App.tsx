@@ -14,9 +14,9 @@ const App: React.FC = () => {
         <EthereumContextProvider>
           <ThemeProvider theme={darkTheme}>
             <CssBaseline />
-            <Layout>
+           
             <Routes/>
-            </Layout>
+    
           </ThemeProvider>
         </EthereumContextProvider>
       </AccountContextProvider>

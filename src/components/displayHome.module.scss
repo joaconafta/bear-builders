@@ -13,14 +13,14 @@
 
 .cardsFeed {
   display: grid;
-  width: 90%;
+  width: 100%;
   height: 120px;
   background: white;
   border-radius: 1rem;
   -webkit-box-shadow: 7px 10px 11px -7px rgba(0, 0, 0, 0.53);
   -moz-box-shadow: 7px 10px 11px -7px rgba(0, 0, 0, 0.53);
   box-shadow: 7px 10px 11px -7px rgba(0, 0, 0, 0.53);
-
+padding: 1rem;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   gap: 0px 0px;
@@ -33,17 +33,21 @@
 .cardsFeedPic {
   grid-area: pic;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   flex-direction: column;
   padding: 2px 5px;
   font-size: .8rem;
 
   &>div {
-    width: 80px;
+    width: 70px;
     height: 80px;
     border-radius: 100%;
     background: $blue;
+  }
+  &:hover{
+    text-decoration: underline 2px $blue;
+    cursor: pointer;
   }
 
 }
@@ -62,6 +66,10 @@
 
   p {
     font-size: 1.1rem;
+    &:hover{
+      text-decoration: underline 2px $blue;
+      cursor: pointer;
+    }
   }
 }
 
@@ -79,12 +87,12 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
   gap: 2rem;
   padding: 1rem 1rem;
 }
 .featureds {
-  width: 30%;
+  width: 40%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -105,39 +113,49 @@
 }
 .profile{
   width: 100%;
-  height: 200px;
- 
+  height: 100px;
   background: white;
   border-radius: 1rem;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
   -webkit-box-shadow: 7px 10px 11px -7px rgba(0, 0, 0, 0.53);
   -moz-box-shadow: 7px 10px 11px -7px rgba(0, 0, 0, 0.53);
   box-shadow: 7px 10px 11px -7px rgba(0, 0, 0, 0.53);
-  &>div{
-    width: 80px;
-    height: 80px;
+  &>div:first-child{
+    width: 50px;
+    height: 50px;
     background: $blue;
     border-radius: 100%;
+    &:hover{
+      text-decoration: underline 2px $blue;
+      cursor: pointer;
+    }
+
+  }
+  &>div:last-child{
+ font-size: 1.2rem;
 
   }
   &>p{
     font-size: 1.5rem;
+    &:hover{
+      text-decoration: underline 2px $blue;
+      cursor: pointer;
+    }
   }
 }
 .commonFeed{
-  width: 70%;
+  width: 60%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
   gap: 0rem;
   height: 100%;
   overflow-y: auto;
   h2{
     height: 6rem;
-    width: 40%;
+    width: fit-content;
     text-align: left;
     font-size: 2rem;
     color: $white;

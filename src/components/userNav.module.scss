@@ -1,0 +1,109 @@
+@import '../mixins.scss';
+.profilePic{
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 8px;
+    border: solid 1px #f2f2f2;
+
+    cursor: pointer;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+.profileNav{
+    position: fixed;
+    z-index: 51;
+    background: $secondary-green;
+    top: 84px;
+    right: 3%;
+    animation: aparition .8s ease-in-out ;
+    height: fit-content;
+    width: 9rem;
+
+    div{
+        height: 36px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding-left: 15%;
+        background: #f2f2f210;
+        color: $blue;
+        font-size: .85rem;
+        cursor: pointer;
+        &:hover{
+            background: #55555555;
+        }
+        &:first-child{
+            border-bottom: 1px solid $blue
+        }
+        &:last-child{
+            border-top: 1px solid $blue
+        }
+    }
+}
+.profileNavOut{
+    position: fixed;
+    z-index: 51;
+    top: 84px;
+    right: 3%;
+    animation: disaparition .8s ease-in-out ;
+    height: fit-content;
+    width: 9rem;
+
+
+    div{
+        height: 36px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding-left: 15%;
+        background: #f2f2f210;
+        color: #f2f2f2;
+        font-size: .85rem;
+        cursor: pointer;
+        &:hover{
+            background: #55555555;
+        }
+        &:first-child{
+            border-bottom: 1px solid #f2f2f2
+        }
+        &:last-child{
+            border-top: 1px solid #f2f2f2
+        }
+    }
+}
+@keyframes aparition {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: flex;
+        opacity: 0;
+        margin-top: -500px;
+    }
+  100% { opacity: 1;display: flex; 
+    margin-top: 0px
+}
+}
+
+@keyframes disaparition {
+    0% {
+        opacity: 1;
+        display: flex; 
+        margin-top: 0
+    }
+
+    // 1% {
+    //     display: flex;
+    //     opacity: 0;
+        
+    // }
+  100% { 
+    display: none;
+    margin-top: -500px;
+    opacity: 0;
+}
+}

@@ -5,10 +5,10 @@
     align-items: center;
     justify-content: space-between;
     gap: 6rem;
-    padding: 1%;
+    padding: 1% 4%;
     
     &>div{
-        width: 30%;
+        width: fit-content;
         display: flex;
         align-items: center;
         justify-content: center;
