@@ -1,50 +1,48 @@
 @import '../mixins.scss';
-.header{
-    width: 100vw;
+.header {
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6rem;
+  padding: 1% 4%;
+
+  & > div {
+    width: fit-content;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 6rem;
-    padding: 1% 4%;
-    
-    &>div{
-        width: fit-content;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: .2rem;
-        &>img{
-            width: 3rem;
-            
-        }
-        &>p{
-            font-size: 1.5rem;
-            font-weight: 700;
-            
-        }
-        &:last-child{
-            justify-content: flex-end;
-            gap: 3rem;
-        }
+    justify-content: center;
+    gap: 0.2rem;
+    & > img {
+      width: 3rem;
     }
-}
-
-.input{
-    background: white;
-}
-
-.button{
-    height: 3rem;
-    width: 3rem;
-    svg{
-        width: 100%;
-        height: 100%;
-        color: $white;
-
+    & > p {
+      font-size: 1.5rem;
+      font-weight: 700;
     }
+    &:last-child {
+      justify-content: flex-end;
+      gap: 3rem;
+    }
+  }
 }
 
-.brand{
-    cursor: pointer;
-    width: fit-content !important; 
+.input {
+  background: white;
+}
+
+.button {
+  height: 3rem;
+  width: 3rem;
+  svg {
+    width: 100%;
+    height: 100%;
+    color: $white;
+  }
+}
+
+.brand {
+  cursor: pointer;
+  width: fit-content !important;
+  filter: brightness(0) invert(1);
 }

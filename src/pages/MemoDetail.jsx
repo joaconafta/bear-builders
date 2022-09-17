@@ -40,7 +40,7 @@ const handleStarModal = () => setStarModal(!starModal)
         <div><p>{post?.metadata?.name}</p></div>
         <div>
           <button onClick={handleStarModal}>Star This</button>
-          <Rating name="half-rating" defaultValue={2.5} precision={0.5}  size='large' className={styles.starSize}/>
+          <Rating name="half-rating-read" defaultValue={2.5} precision={0.5}  size='large' className={styles.starSize}/>
           </div>
           <div className='desc'>
             <p>{post?.metadata?.description}</p>
