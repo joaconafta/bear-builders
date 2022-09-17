@@ -1,7 +1,7 @@
-import { signedTypeData, getAddressFromSigner, splitSignature } from './EtherService';
+import { signedTypeData, getAddressFromSigner, splitSignature } from './EtherService'
 import { gql } from '@apollo/client'
-import { apolloClientWithToken } from './Apollo-Client';
-import { lensHub } from './lensHub';
+import { apolloClientWithToken } from './Apollo-Client'
+import { lensHub } from './lensHub'
 
 const CREATE_COMMENT_TYPED_DATA = `
       mutation($request: CreatePublicCommentRequest!) { 
@@ -44,15 +44,15 @@ const createCommentTypedData = (createCommentTypedDataRequest: any) => {
     mutation: gql(CREATE_COMMENT_TYPED_DATA),
     variables: {
       request: createCommentTypedDataRequest
-    },
+    }
   })
 }
 
-export const createComment = async (profileId: string, contentURI: string) => {
+export const createComment = async (profileId: string, contentURI: string, postId: string) => {
   // hard coded to make the code example clear
   const createCommentRequest = {
     profileId: profileId,
-    publicationId: "0x01-0x01",
+    publicationId: postId,
     contentURI,
     collectModule: {
       freeCollectModule: {
@@ -62,13 +62,13 @@ export const createComment = async (profileId: string, contentURI: string) => {
     referenceModule: {
       followerOnlyReferenceModule: false
     }
-  };
+  }
 
-  const result = await createCommentTypedData(createCommentRequest);
-  const typedData = result.data.createCommentTypedData.typedData;
+  const result = await createCommentTypedData(createCommentRequest)
+  const typedData = result.data.createCommentTypedData.typedData
 
-  const signature = await signedTypeData(typedData.domain, typedData.types, typedData.value);
-  const { v, r, s } = splitSignature(signature);
+  const signature = await signedTypeData(typedData.domain, typedData.types, typedData.value)
+  const { v, r, s } = splitSignature(signature)
 
   const tx = await lensHub.commentWithSig({
     profileId: typedData.value.profileId,
@@ -84,11 +84,11 @@ export const createComment = async (profileId: string, contentURI: string) => {
       v,
       r,
       s,
-      deadline: typedData.value.deadline,
-    },
-  });
-  console.log(tx.hash);
+      deadline: typedData.value.deadline
+    }
+  })
+  console.log(tx.hash)
   // 0x64464dc0de5aac614a82dfd946fc0e17105ff6ed177b7d677ddb88ec772c52d3
-  // you can look at how to know when its been indexed here: 
+  // you can look at how to know when its been indexed here:
   //   - https://docs.lens.dev/docs/has-transaction-been-indexed
 }

@@ -43,8 +43,8 @@ const handleStarModal = () => setStarModal(!starModal)
           <Rating name="half-rating-read" defaultValue={2.5} precision={0.5}  size='large' className={styles.starSize}/>
           </div>
           <div className='desc'>
-            <p>{post?.metadata?.description}</p>
-            <div><p>Created by <span>Joaco Naftaly</span></p></div>
+            <p>{post?.metadata?.content}</p>
+            <div><p>Created by <span>{post?.profile?.handle}</span></p></div>
           </div>
     </div>
     <Previews/>

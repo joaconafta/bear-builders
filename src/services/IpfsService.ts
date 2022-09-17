@@ -1,7 +1,7 @@
 import { create, CID, IPFSHTTPClient } from 'ipfs-http-client'
 import { v4 as uuidv4 } from 'uuid'
 
-export const uploadToIpfs = async (title: string, category: string, body: string) => {
+export const uploadToIpfs = async (title: string, category: string, body: string, isComment = false) => {
   console.log('arranca....')
   const auth = 'Basic ' + Buffer.from('2EtmssEEVuUmjGjyOZlgY8Umij0' + ':' + '15ecec7a77558fa48a45582898213cd6').toString('base64')
   // const ipfs = await IPFS.create()
@@ -19,9 +19,17 @@ export const uploadToIpfs = async (title: string, category: string, body: string
     ipfs = undefined
   }
 
+  let rankattrs = [{ displayType: 'string', traitType: 'Publication', value: 'LenstubeVideo' }]
+  if (isComment) {
+    rankattrs = [
+      { displayType: 'string', traitType: 'Publication', value: 'LenstubeVideo' },
+      { displayType: 'number', traitType: 'Stars', value: title }
+    ]
+  }
+
   const metadata = {
     version: '1.0.0',
-    metadata_id: '12dsfgsdgfsgsfadfads92ea41c6-bdf8-4866-a031-6de1d7b01d0e',
+    metadata_id: '92ea41c6-bdf8-4866-a031-6de1d7b01d0e',
     description: category,
     content: body,
     external_url: null,
@@ -30,7 +38,7 @@ export const uploadToIpfs = async (title: string, category: string, body: string
     cover: 'https://ipfs.infura.io/ipfs/QmWHB8e3MdxcVMxGLnB1N1ZsCSPPuuBWJseEZ6tP3YaKZn',
     imageMimeType: 'image/jpeg',
     name: title,
-    attributes: [{ displayType: 'string', traitType: 'Publication', value: 'LenstubeVideo' }],
+    attributes: rankattrs,
     media: [
       { item: 'https://ipfs.infura.io/ipfs/QmNMYMMBiMWbPUJKU6M2dRUScX4xniB99eKVRrtERqT96i', type: 'video/mp4' },
       { item: 'https://livepeercdn.com/asset/746b9zxagtln4u54/video', type: 'video/mp4' }
