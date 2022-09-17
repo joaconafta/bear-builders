@@ -51,7 +51,7 @@ const Post: React.FC = () => {
             {latestPost?.map((post: any, i) => {
               return (
                 <>
-                  <PostCard content={post.metadata.content} profile={post.profile} title={post.metadata.name}></PostCard>
+                  <PostCard content={post.metadata.content} profile={post.profile} title={post.metadata.name} post={post}></PostCard>
                 </>
               )
             })}
