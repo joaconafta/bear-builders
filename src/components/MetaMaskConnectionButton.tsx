@@ -3,6 +3,7 @@ import LoadingButton from '@mui/lab/LoadingButton'
 import { useSnackbar } from 'notistack'
 import useAccount from '../hooks/useAccount'
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker'
+import LensLogo from '../assets/lens.png'
 
 const MetaMaskConnectionButton: React.FC = () => {
   const { login } = useAccount()
@@ -35,7 +36,8 @@ const MetaMaskConnectionButton: React.FC = () => {
 
   return (
     <LoadingButton variant="contained" loading={promiseInProgress} onClick={connect}>
-      Conectar billetera
+        <img height="16" width="16" src={LensLogo} alt="Lens Logo"></img>
+        <p> Sign-In with Lens</p>
     </LoadingButton>
   )
 }
