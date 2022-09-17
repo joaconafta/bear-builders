@@ -391,12 +391,12 @@ const GET_PUBLICATIONS = `
   }
 `
 
-export const getPublications = () => {
+export const getPublications = (profileId: string) => {
   return apolloClient.query({
     query: gql(GET_PUBLICATIONS),
     variables: {
       request: {
-        profileId: '0x46bf',
+        profileId: profileId,
         publicationTypes: ['POST', 'COMMENT', 'MIRROR'],
         limit: 10
       }

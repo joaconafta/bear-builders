@@ -1,12 +1,26 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './profileDetail.module.scss'
 import { Rating } from '@mui/material'
 import Previews from '../components/Previews'
 import { useParams, useNavigate } from 'react-router-dom'
+import { getProfile } from '../services/ApoloService'
 
 const ProfileDetail = () => {
-  const {profileID} = useParams()
+  const {id} = useParams()
   const navigate = useNavigate()
+  const [profile, setProfile] = useState({})
+  useEffect(() => {
+    
+      const init = async () => {
+        setTimeout(async () => {
+          const prof = (await getProfile(id)).data.profile
+          console.log('ACA',prof)
+          setProfile(prof)
+          
+        }, 500);
+      }
+      init()
+  }, [])
   return (
     <div className={styles.wrapper}>
       <div className={styles.profileHeader}>
@@ -14,14 +28,14 @@ const ProfileDetail = () => {
 
         </div>
         
-          <div><p>Joaquin Naftaly</p></div>
+          <div><p>{profile?.handle}</p></div>
           <div>
             <div className={styles.followers}>
               <div>
-                Followers: 20k
+                Followers: {profile?.stats?.totalFollowers}
               </div>
               <div>
-                Following: 2k
+                Following: {profile?.stats?.totalFollowing}
               </div>
               <div>
                 <button>Follow</button> 
@@ -30,7 +44,7 @@ const ProfileDetail = () => {
             <Rating name="half-rating" defaultValue={2.5} precision={0.5}  size='large' className={styles.starSize}/>
             </div>
           <div className='desc'>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est voluptate cum iste iure nobis perspiciatis illo nostrum recusandae saepe quia, modi pariatur voluptatem, eligendi quasi. Quidem quae optio cupiditate ab?</p>
+            <p>{profile?.bio}</p>
             <div><button className={styles.button}>Eventos</button><button className={styles.button}>Stars Received</button><button className={styles.button}>Stars Given</button></div>
           </div>
       </div>

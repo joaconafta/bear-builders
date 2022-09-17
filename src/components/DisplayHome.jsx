@@ -22,12 +22,11 @@ const DisplayHome = () => {
                 <div className={styles.featuredFeed}>
                     {data.map((prof, i) => {     
                         const image = prof.picture ? prof.picture.original.url : ''
-                        console.log(image)
                         // Return the element. Also pass key     
                         return (
-                            <div className={styles.profile}  >
+                            <div key={i} className={styles.profile}  >
 
-                                <div className='picCard' nClick={() => navigate(`/profiles/${prof.id}`)} style={{ background : `url(${image})`}}>
+                                <div className='picCard' onClick={() => navigate(`/profiles/${prof.id}`)} style={{ background : `url(${image})`}}>
                                     
                                 </div>
                                 <div className={styles.featuredProf} >

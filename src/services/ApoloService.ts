@@ -387,11 +387,11 @@ const GET_PROFILE = `
   }
 `
 
-export const getProfil = () => {
+export const getProfile = (profileId: string) => {
   return apolloClient.query({
     query: gql(GET_PROFILE),
     variables: {
-      request: { profileId: '0x46bf' }
+      request: { profileId: profileId }
     }
   })
 }
