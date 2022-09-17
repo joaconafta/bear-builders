@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styles from './newMomment.module.scss'
 import { Box, TextField, Select, SelectChangeEvent, Checkbox, ListItemText, MenuItem, OutlinedInput } from '@mui/material'
-import { uploadToIpfs } from '../services/IpfsService'
+// import { uploadToIpfs } from '../services/IpfsService'
 import { createPost } from '../services/PostService'
 import useAccount from '../hooks/useAccount'
 import { LoadingButton } from '@mui/lab'
@@ -19,14 +19,14 @@ const NewMomment = ({ handleModal, isProfile }) => {
  const [body, setBody] = useState("")
 
   const handlePost = async () => {
-    try {
-      const contentUri = await trackPromise(uploadToIpfs(title,categories,body), 'post')
-      console.log(contentUri)
-       await trackPromise(createPost(profile.id, contentUri), "post")
-       handleModal()
-    } catch (error) {
-      console.log(error)
-    }
+    // try {
+    //   const contentUri = await trackPromise(uploadToIpfs(title,categories,body), 'post')
+    //   console.log(contentUri)
+    //    await trackPromise(createPost(profile.id, contentUri), "post")
+    //    handleModal()
+    // } catch (error) {
+    //   console.log(error)
+    // }
   }
 
   return (
