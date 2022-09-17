@@ -31,9 +31,7 @@ const handleModalComments = () => setNewMomment(!newMomment)
       <main>
         {props.children}
       </main>
-      <footer>
-        footer
-      </footer>
+
     </div>
   )
 }
