@@ -20,7 +20,7 @@ const Previews = ({type, data}) => {
         }, 500);
       }
       init()
-  }, [])
+  }, [id])
   
   return (
     <div className={styles.container}>

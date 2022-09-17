@@ -15,13 +15,12 @@ const ProfileDetail = () => {
       const init = async () => {
         setTimeout(async () => {
           const prof = (await getProfile(id)).data.profile
-          console.log('ACA',prof)
           setProfile(prof)
           
         }, 500);
       }
       init()
-  }, [])
+  }, [id])
   const [screenWidth, setScreenWidth] = useState(window.innerWidth)
   const handleWindowResize = useCallback(event => {
 
