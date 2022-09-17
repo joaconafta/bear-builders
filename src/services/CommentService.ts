@@ -2,11 +2,8 @@ import { signedTypeData, getAddressFromSigner, splitSignature } from './EtherSer
 import { gql } from '@apollo/client'
 import { apolloClientWithToken } from './Apollo-Client';
 import { lensHub } from './lensHub';
-import { ProfileType } from '../types/ProfileType';
 
-export const createComment = async (profile: ProfileType) => {
-
-    const CREATE_COMMENT_TYPED_DATA = `
+const CREATE_COMMENT_TYPED_DATA = `
       mutation($request: CreatePublicCommentRequest!) { 
         createCommentTypedData(request: $request) {
           id
@@ -41,37 +38,38 @@ export const createComment = async (profile: ProfileType) => {
        }
      }
     `
-    
-    const createCommentTypedData = (createCommentTypedDataRequest: any) => {
-       return apolloClientWithToken.mutate({
-        mutation: gql(CREATE_COMMENT_TYPED_DATA),
-        variables: {
-          request: createCommentTypedDataRequest
-        },
-      })
-    }
 
+const createCommentTypedData = (createCommentTypedDataRequest: any) => {
+  return apolloClientWithToken.mutate({
+    mutation: gql(CREATE_COMMENT_TYPED_DATA),
+    variables: {
+      request: createCommentTypedDataRequest
+    },
+  })
+}
+
+export const createComment = async (profileId: string, contentURI: string) => {
   // hard coded to make the code example clear
   const createCommentRequest = {
-    profileId: profile.id,
+    profileId: profileId,
     publicationId: "0x01-0x01",
-    contentURI: "ipfs://QmP9QAeZijDsPFFQQNgZhANWAw64yY87vtUz4AgQF1SZ3M",
+    contentURI,
     collectModule: {
-        freeCollectModule: {
-            followerOnly: true
-          }
+      freeCollectModule: {
+        followerOnly: true
+      }
     },
     referenceModule: {
-        followerOnlyReferenceModule: false
+      followerOnlyReferenceModule: false
     }
   };
-        
+
   const result = await createCommentTypedData(createCommentRequest);
   const typedData = result.data.createCommentTypedData.typedData;
-  
+
   const signature = await signedTypeData(typedData.domain, typedData.types, typedData.value);
   const { v, r, s } = splitSignature(signature);
-  
+
   const tx = await lensHub.commentWithSig({
     profileId: typedData.value.profileId,
     contentURI: typedData.value.contentURI,

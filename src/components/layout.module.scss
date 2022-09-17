@@ -3,6 +3,7 @@
   background: $blue;
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
   @include maxWidth(650px) {
     height: fit-content;
   }

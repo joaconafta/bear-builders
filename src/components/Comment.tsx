@@ -10,7 +10,7 @@ const Comment: React.FC = () => {
 
   const handleComment = async () => {
     if(!profile) throw new Error('You are not logged')
-    await createComment(profile)
+    await createComment(profile.id, "ipfs://QmP9QAeZijDsPFFQQNgZhANWAw64yY87vtUz4AgQF1SZ3M")
   }
 
   return (
