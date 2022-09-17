@@ -1,9 +1,12 @@
 import React from 'react'
 import { Box } from '@mui/system'
-import { createPost } from '../services/PostService'
-import { follow } from '../services/FollowService'
+import { createPost, createPostTypedData } from '../services/PostService'
+
 import { Button } from '@mui/material'
 import useAccount from '../hooks/useAccount'
+import { createFollowTypedData } from '../services/FollowService'
+import { getAddressFromSigner, signedTypeData, splitSignature } from '../services/EtherService'
+import { lensHub } from '../services/lensHub'
 
 const Post: React.FC = () => {
   const { profile } = useAccount()
@@ -16,11 +19,11 @@ const Post: React.FC = () => {
   }
 
   return (
-    <Box >
+    <Box>
       Post:
-        <Button onClick={() => handlePost()}>Create Post</Button>
+      <Button onClick={() => handlePost()}>Create Post</Button>
       Follow:
-        <Button onClick={() => handleFollow()}>Follow</Button>
+      <Button onClick={() => handleFollow()}>Follow</Button>
     </Box>
   )
 }
